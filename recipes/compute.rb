@@ -15,7 +15,7 @@ if node["quantum"]["plugin"] == "lb"
 end
 
 # apply fixes for Alpha-1: location based IP assignment
-template "/usr/lib/python2.7/dist-packages/nova/network/quantumv2/api.py" do
+template "/usr/share/pyshared/nova/network/quantumv2/api.py" do
   source "ktc-patches/api.py.2012.2.1+stable-20121212-a99a802e-0ubuntu1.4~cloud0"
   owner "root"
   group "root"
