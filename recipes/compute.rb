@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nova
+# Cookbook Name:: ktc-nova
 # Recipe:: compute
 #
 
