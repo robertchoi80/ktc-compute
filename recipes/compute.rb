@@ -15,6 +15,15 @@ rewind :nova_conf => "/etc/nova/nova.conf" do
   cookbook_name "ktc-nova"
 end
 
+# Add cgroup_device_acl option to /etc/libvirt/qemu.conf
+cookbook_file "/etc/libvirt/qemu.conf" do
+  source "qemu.conf.erb"
+  owner "nova"
+  group "nova"
+  mode "0600"
+  notifies :restart, resources(:service => "libvirt-bin"), :immediately
+end
+
 # Rewind nova-compute.conf template to use the "lb" config source
 if node["quantum"]["plugin"] == "lb"
   rewind :template => "/etc/nova/nova-compute.conf" do
