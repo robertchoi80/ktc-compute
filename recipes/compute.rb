@@ -6,15 +6,7 @@
 chef_gem "chef-rewind"
 require 'chef/rewind'
 
-# Define our own nova_conf provider and rewind nova_conf resource to use it
-# to add quantum_default_private_network option into the nova.conf file.
-include_recipe "ktc-nova::provider_nova_conf"
 include_recipe "nova::compute"
-rewind :nova_conf => "/etc/nova/nova.conf" do
-  provider Chef::Provider::KtcNovaConf
-  cookbook_name "ktc-nova"
-end
-
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
 cookbook_file "/etc/libvirt/qemu.conf" do
   source "qemu.conf.erb"
