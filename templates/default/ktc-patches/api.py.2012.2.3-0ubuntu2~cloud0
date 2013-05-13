@@ -123,8 +123,8 @@ class API(base.Base):
                 net_ids.append(network_id)
 
         private_net_id = quantumv20.find_resourceid_by_name_or_id(
-                    quantum, 'network', FLAGS.quantum_default_private_network)
-        if not private_net_id:
+                    quantum, 'network', FLAGS.quantum_default_private_network) 
+        if not private_net_id: 
             raise Exception(_('Default Private Network ID Not Found'))
         else:
             net_ids.append(private_net_id)
@@ -615,7 +615,8 @@ class API(base.Base):
             # attempt to populate DHCP server field
             search_opts = {'network_id': subnet['network_id'],
                            'device_owner': 'network:dhcp'}
-            data = quantumv2.get_client(context).list_ports(**search_opts)
+            admin_context = context.elevated()
+            data = quantumv2.get_client(admin_context).list_ports(**search_opts)
             dhcp_ports = data.get('ports', [])
             for p in dhcp_ports:
                 for ip_pair in p['fixed_ips']:
