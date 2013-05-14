@@ -28,7 +28,7 @@ class ::Chef
         if net_provider == "quantum"
           quantum_info = get_settings_by_recipe("nova-network\\:\\:nova-controller", "quantum")
           quantum_endpoint = get_access_endpoint("nova-network-controller", "quantum", "api")
-          nova_info = get_access_endpoint("nova-api-os-compute", "nova", "api")
+          nova_info = get_access_endpoint("nova-api-metadata", "nova", "api")
           metadata_ip = nova_info["host"]
         end
       
@@ -147,3 +147,11 @@ class ::Chef
     end  
   end
 end
+
+chef_gem "chef-rewind"
+require 'chef/rewind'
+
+rewind :nova_conf => "/etc/nova/nova.conf" do
+  provider Chef::Provider::KtcNovaConf
+end
+
