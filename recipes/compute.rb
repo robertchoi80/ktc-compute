@@ -37,7 +37,7 @@ include_recipe "osops-utils"
     end
   end
   if ::Chef::Recipe::Patch.check_package_version("nova-compute",version,node)
-    template "/usr/share/pyshared/nova/network/quantumv2/manager.py" do
+    template "/usr/share/pyshared/nova/compute/manager.py" do
       source "ktc-patches/manager.py.#{version}"
       owner "root"
       group "root"
