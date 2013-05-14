@@ -5,34 +5,49 @@ class ::Chef
     class KtcNovaConf < ::Chef::Provider::NovaConf
 
       def action_create
-        log "This is ktc nova_conf provider to put quantum_default_private_network option."
-        log "Creating the nova.conf #{new_resource.version}"
+        log "This is ktc nova_conf provider."
+        log "Creating the nova.conf"
       
-        # do all the searches
+        # Search for mysql endpoint info
         mysql_info = get_access_endpoint("mysql-master", "mysql", "db")
+        # Search for rabbit endpoint info
         rabbit_info = get_access_endpoint("rabbitmq-server", "rabbitmq", "queue")
+        # Get settings from role[nova-setup]
         nova_setup_info = get_settings_by_role("nova-setup", "nova")
-        keystone = get_settings_by_role("keystone", "keystone")
-        ks_admin_endpoint = get_access_endpoint("keystone-api", "keystone", "admin-api")
-        ks_service_endpoint = get_access_endpoint("keystone-api", "keystone", "service-api")
+        # Search for keystone endpoint info
+        ks_api_role = "keystone-api"
+        ks_ns = "keystone"
+        ks_admin_endpoint = get_access_endpoint(ks_api_role, ks_ns, "admin-api")
+        ks_service_endpoint = get_access_endpoint(ks_api_role, ks_ns, "service-api")
+        # Search for glance endpoint info
         glance_endpoint = get_access_endpoint("glance-api", "glance", "api")
+        # Get endpoint info for nova-api
         api_bind = get_bind_endpoint("nova", "api")
+        # Get endpoint info for nova-api-ec2
         ec2_bind = get_bind_endpoint("nova", "ec2-public")
-        xvpvncproxy_endpoint = get_access_endpoint("nova-vncproxy", "nova", "xvpvnc-proxy")
-        novncproxy_endpoint = get_access_endpoint("nova-vncproxy", "nova", "novnc-proxy")
+        # Search for xvpvnc endpoint info
+        vnc_role = "nova-vncproxy"
+        xvpvncproxy_endpoint = get_access_endpoint(vnc_role, "nova", "xvpvnc-proxy")
+        novncproxy_endpoint = get_access_endpoint(vnc_role, "nova", "novnc-proxy")
+        # Get bind info for vnc
         xvpvncproxy_bind = get_bind_endpoint("nova", "xvpvnc-proxy")
         novncserver_bind = get_bind_endpoint("nova", "novnc-server")
         novncproxy_bind = get_bind_endpoint("nova", "novnc-proxy")
       
         net_provider = node["nova"]["network"]["provider"]
         if net_provider == "quantum"
-          quantum_info = get_settings_by_recipe("nova-network\\:\\:nova-controller", "quantum")
-          quantum_endpoint = get_access_endpoint("nova-network-controller", "quantum", "api")
+          # Get settings from recipe[nova-network::nova-controller]
+          recipe = "nova-network\\:\\:nova-controller"
+          quantum_info = get_settings_by_recipe(recipe, "quantum")
+          # Search for quantum enpoint info
+          nova_net_role = "nova-network-controller"
+          quantum_endpoint = get_access_endpoint(nova_net_role, "quantum", "api")
+          # Search for nova api endpoint info
           nova_info = get_access_endpoint("nova-api-metadata", "nova", "api")
           metadata_ip = nova_info["host"]
         end
       
-        platform_options = node["nova"]["platform"][new_resource.version]
+        platform_options = node["nova"]["platform"]
       
         # Case nova or quantum
         # network_options assemble hash here
@@ -74,13 +89,13 @@ class ::Chef
           mode "0644"
           cookbook "nova"
           variables(
-          "hardware_gateway" => node["nova"]["config"]["hardware_gateway"],
-          "dns_servers" => node["nova"]["config"]["dns_servers"]
+            "hardware_gateway" => node["nova"]["config"]["hardware_gateway"],
+            "dns_servers" => node["nova"]["config"]["dns_servers"]
           )
         end
-
+      
         t = template "/etc/nova/nova.conf" do
-          source "#{new_resource.version}/nova.conf.erb"
+          source "nova.conf.erb"
           owner "nova"
           group "nova"
           mode "0600"
@@ -111,6 +126,7 @@ class ::Chef
             "scheduler_least_cost_functions" => node["nova"]["scheduler"]["least_cost_functions"],
             "availability_zone" => node["nova"]["config"]["availability_zone"],
             "default_schedule_zone" => node["nova"]["config"]["default_schedule_zone"],
+            "connection_type" => node["nova"]["compute"]["connection_type"],
             "virt_type" => node["nova"]["libvirt"]["virt_type"],
             "remove_unused_base_images" => node["nova"]["libvirt"]["remove_unused_base_images"],
             "remove_unused_resized_minimum_age_seconds" => node["nova"]["libvirt"]["remove_unused_resized_minimum_age_seconds"],
@@ -144,7 +160,7 @@ class ::Chef
         end
         new_resource.updated_by_last_action(t.updated_by_last_action?)
       end
-    end  
+    end
   end
 end
 
