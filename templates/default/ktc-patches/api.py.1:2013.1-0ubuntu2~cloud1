@@ -184,7 +184,7 @@ class API(base.Base):
                     net_ids.append(network_id)
 
         private_net_id = quantumv20.find_resourceid_by_name_or_id(
-                    quantum, 'network', FLAGS.quantum_default_private_network)
+                    quantum, 'network', CONF.quantum_default_private_network)
         if not private_net_id:
             raise Exception(_('Default Private Network ID Not Found'))
         else:
