@@ -43,7 +43,7 @@ class ::Chef
           nova_net_role = "nova-network-controller"
           quantum_endpoint = get_access_endpoint(nova_net_role, "quantum", "api")
           # Search for nova api endpoint info
-          nova_info = get_access_endpoint("nova-api-metadata", "nova", "api")
+          nova_info = get_access_endpoint("nova-api-metadata", "nova", "metadata")
           metadata_ip = nova_info["host"]
         end
       
@@ -73,12 +73,13 @@ class ::Chef
           network_options["quantum_admin_username"] = quantum_info["service_user"]
           network_options["quantum_admin_password"] = quantum_info["service_pass"]
           network_options["quantum_admin_auth_url"] = ks_admin_endpoint["uri"]
-          network_options["quantum_default_private_network"] = node[net_provider]["lb"]["physical_network"]
-          network_options["network_api_class"] = node[net_provider]["network_api_class"]
-          network_options["quantum_auth_strategy"] = node[net_provider]["auth_strategy"]
-          network_options["libvirt_vif_driver"] = node[net_provider]["libvirt_vif_driver"]
-          network_options["linuxnet_interface_driver"] = node[net_provider]["linuxnet_interface_driver"]
-          network_options["firewall_driver"] = node[net_provider]["firewall_driver"]
+          network_options["quantum_default_private_network"] = quantum_info["lb"]["physical_network"]
+          network_options["network_api_class"] = quantum_info["network_api_class"]
+          network_options["quantum_auth_strategy"] = quantum_info["auth_strategy"]
+          network_options["libvirt_vif_driver"] = quantum_info["libvirt_vif_driver"]
+          network_options["linuxnet_interface_driver"] = quantum_info["linuxnet_interface_driver"]
+          network_options["firewall_driver"] = quantum_info["firewall_driver"]
+          network_options["service_quantum_metadata_proxy"] = quantum_info["service_quantum_metadata_proxy"]
           network_options["metadata_host"] = metadata_ip
         end
       
@@ -99,7 +100,7 @@ class ::Chef
           owner "nova"
           group "nova"
           mode "0600"
-          cookbook "nova"
+          cookbook "ktc-nova"
           variables(
             "use_syslog" => node["nova"]["syslog"]["use"],
             "log_facility" => node["nova"]["syslog"]["facility"],
@@ -155,7 +156,8 @@ class ::Chef
             "osapi_compute_listen_port" => api_bind["port"],
             "ec2_listen" => ec2_bind["host"],
             "ec2_host" => ec2_bind["host"],
-            "ec2_listen_port" => ec2_bind["port"]
+            "ec2_listen_port" => ec2_bind["port"],
+            "use_ceilometer" => node.recipe?("ceilometer::ceilometer-compute")
           )
         end
         new_resource.updated_by_last_action(t.updated_by_last_action?)
