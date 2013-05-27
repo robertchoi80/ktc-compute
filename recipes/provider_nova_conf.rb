@@ -71,12 +71,12 @@ class ::Chef
           network_options["quantum_admin_password"] = quantum_info["service_pass"]
           network_options["quantum_admin_auth_url"] = ks_admin_endpoint["uri"]
           network_options["quantum_default_private_network"] = quantum_info["lb"]["physical_network"]
-          network_options["network_api_class"] = quantum_info["network_api_class"]
-          network_options["quantum_auth_strategy"] = quantum_info["auth_strategy"]
-          network_options["libvirt_vif_driver"] = quantum_info["libvirt_vif_driver"]
-          network_options["linuxnet_interface_driver"] = quantum_info["linuxnet_interface_driver"]
-          network_options["firewall_driver"] = quantum_info["firewall_driver"]
-          network_options["service_quantum_metadata_proxy"] = quantum_info["service_quantum_metadata_proxy"]
+          network_options["network_api_class"] = node[net_provider]["network_api_class"]
+          network_options["quantum_auth_strategy"] = node[net_provider]["auth_strategy"]
+          network_options["libvirt_vif_driver"] = node[net_provider]["libvirt_vif_driver"]
+          network_options["linuxnet_interface_driver"] = node[net_provider]["linuxnet_interface_driver"]
+          network_options["firewall_driver"] = node[net_provider]["firewall_driver"]
+          network_options["service_quantum_metadata_proxy"] = node[net_provider]["service_quantum_metadata_proxy"]
           network_options["metadata_host"] = metadata_ip
         end
       
