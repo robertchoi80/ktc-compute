@@ -25,12 +25,9 @@ class ::Chef
         api_bind = get_bind_endpoint("nova", "api")
         # Get endpoint info for nova-api-ec2
         ec2_bind = get_bind_endpoint("nova", "ec2-public")
-        # Search for xvpvnc endpoint info
         vnc_role = "nova-vncproxy"
-        xvpvncproxy_endpoint = get_access_endpoint(vnc_role, "nova", "xvpvnc-proxy")
         novncproxy_endpoint = get_access_endpoint(vnc_role, "nova", "novnc-proxy")
         # Get bind info for vnc
-        xvpvncproxy_bind = get_bind_endpoint("nova", "xvpvnc-proxy")
         novncserver_bind = get_bind_endpoint("nova", "novnc-server")
         novncproxy_bind = get_bind_endpoint("nova", "novnc-proxy")
       
@@ -110,11 +107,8 @@ class ::Chef
             "vncserver_listen" => novncserver_bind["host"],
             "vncserver_proxyclient_address" => novncserver_bind["host"],
             "novncproxy_base_url" => novncproxy_endpoint["uri"],
-            "xvpvncproxy_bind_host" => xvpvncproxy_bind["host"],
-            "xvpvncproxy_bind_port" => xvpvncproxy_bind["port"],
             "novncproxy_bind_host" => novncproxy_bind["host"],
             "novncproxy_bind_port" => novncproxy_bind["port"],
-            "xvpvncproxy_base_url" => xvpvncproxy_endpoint["uri"],
             "rabbit_ipaddress" => rabbit_info["host"],
             "rabbit_port" => rabbit_info["port"],
             "keystone_api_ipaddress" => ks_admin_endpoint["host"],
