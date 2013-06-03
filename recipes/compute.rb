@@ -26,7 +26,7 @@ end
 
 # apply fixes for nova-compute
 include_recipe "osops-utils"
-%w{ 1:2013.1-0ubuntu2~cloud1}.each do |version|
+%w{ 1:2013.1-0ubuntu2~cloud1 1:2013.1.1-0ubuntu2~cloud0}.each do |version|
   if ::Chef::Recipe::Patch.check_package_version("nova-compute",version,node)
     template "/usr/share/pyshared/nova/network/quantumv2/api.py" do
       source "ktc-patches/api.py.#{version}"
