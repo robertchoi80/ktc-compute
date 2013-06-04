@@ -19,7 +19,7 @@ end
 # Rewind nova-compute.conf template to use the "lb" config source
 if node["quantum"]["plugin"] == "lb"
   rewind :template => "/etc/nova/nova-compute.conf" do
-    source "folsom/nova-compute.conf.erb"
+    source "grizzly/nova-compute.conf.erb"
     cookbook_name "ktc-nova"
   end
 end
