@@ -21,6 +21,7 @@ if node["quantum"]["plugin"] == "lb"
   rewind :template => "/etc/nova/nova-compute.conf" do
     source "grizzly/nova-compute.conf.erb"
     cookbook_name "ktc-nova"
+    notifies :restart, resources(:service => "nova-compute"), :delayed
   end
 end
 
