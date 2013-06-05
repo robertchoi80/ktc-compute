@@ -3,9 +3,6 @@
 # Recipe:: compute
 #
 
-chef_gem "chef-rewind"
-require 'chef/rewind'
-
 include_recipe "nova::compute"
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
 cookbook_file "/etc/libvirt/qemu.conf" do
@@ -16,13 +13,17 @@ cookbook_file "/etc/libvirt/qemu.conf" do
   notifies :restart, resources(:service => "libvirt-bin"), :immediately
 end
 
-# Rewind nova-compute.conf template to use the "lb" config source
-if node["quantum"]["plugin"] == "lb"
-  rewind :template => "/etc/nova/nova-compute.conf" do
-    source "grizzly/nova-compute.conf.erb"
-    cookbook_name "ktc-nova"
-    notifies :restart, resources(:service => "nova-compute"), :delayed
-  end
+# Fix /etc/init/nova-compute.conf not to read /etc/nova/nova-compute.conf
+cookbook_file "/etc/init/nova-compute.conf" do
+  source "init_nova-compute.conf"
+  cookbook "ktc-nova"
+  action :create
+  notifies :restart, resources(:service => "nova-compute"), :immediately
+end
+
+# Remove nova-compute.conf. We don't need it.
+file "/etc/nova/nova-compute.conf" do
+  action :delete
 end
 
 # apply fixes for nova-compute
