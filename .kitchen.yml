@@ -1,0 +1,31 @@
+---
+driver_plugin: vagrant
+
+platforms:
+- name: centos-6.4_chef-11.4.4
+  driver_config: 
+    box: opscode-centos-6.4_chef-11.4.4
+    box_url:  https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
+- name: ubuntu-12.04_chef-11.4.4
+  driver_config:
+    box: opscode-ubuntu-12.04_chef-11.4.4
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.4.box
+
+suites:
+- name: default
+  run_list:
+    - recipe[chef-solo-search]
+    - recipe[ktc-compute]
+  attributes: 
+
+# example suite
+- name: full
+  run_list:
+    - role[os-base]
+    - role[os-ops-messaging]
+    - recipe[ktc-compute]
+  attributes:
+    
+clusters:
+  default:
+    - default
