@@ -8,7 +8,12 @@ recipe		        "compute", ""
   supports os
 end
 
-%w{ nova }.each do |dep|
+%w{
+  ktc-utils
+  openstack-common
+  openstack-compute
+  openstack-object-storage
+}.each do |dep|
   depends dep
 end
 

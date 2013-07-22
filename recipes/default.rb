@@ -6,3 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+include_recipe "openstack-common"
+include_recipe "openstack-common::logging"
+include_recipe "openstack-object-storage::memcached"
+include_recipe "ktc-nova::compute"
