@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ktc-nova
+# Cookbook Name:: ktc-compute
 # Recipe:: compute
 #
 class ::Chef::Recipe
@@ -33,7 +33,7 @@ end
 if node["quantum"]["plugin"] == "lb"
   rewind :template => "/etc/nova/nova-compute.conf" do
     source "folsom/nova-compute.conf.erb"
-    cookbook_name "ktc-nova"
+    cookbook_name "ktc-compute"
   end
 end
 
