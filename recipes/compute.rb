@@ -2,11 +2,24 @@
 # Cookbook Name:: ktc-nova
 # Recipe:: compute
 #
+class ::Chef::Recipe
+  include ::Openstack
+end
+
+# search for control node and set all the necessary node attributes
+# so the nova service gets configured correctly
+control_node = config_by_role "os-compute-single-controller"
+if control_node
+  print "control node ip: #{control_node.ipaddress}"
+  node.default["memcached"]["listen"] = control_node.ipaddress
+  node.default["openstack"]["compute"]["rabbit"]["host"] = control_node.ipaddress
+  node.default["openstack"]["db"]["compute"]["host"] = control_node.ipaddress
+end
 
 chef_gem "chef-rewind"
 require 'chef/rewind'
 
-include_recipe "nova::compute"
+include_recipe "openstack-compute::compute"
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
 cookbook_file "/etc/libvirt/qemu.conf" do
   source "qemu.conf.erb"
@@ -25,7 +38,7 @@ if node["quantum"]["plugin"] == "lb"
 end
 
 # apply fixes for nova-compute
-include_recipe "osops-utils"
+include_recipe "ktc-utils"
 %w{ 2012.2.1+stable-20121212-a99a802e-0ubuntu1.4~cloud0 2012.2.3-0ubuntu2~cloud0 }.each do |version|
   if ::Chef::Recipe::Patch.check_package_version("nova-compute",version,node)
     template "/usr/share/pyshared/nova/network/quantumv2/api.py" do
