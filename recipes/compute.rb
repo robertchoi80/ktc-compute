@@ -23,7 +23,7 @@ elsif memcached_servers.length > 1
 end
 
 # search for node with mysql recipe
-mysql_servers = search_for "os-ops-database"
+mysql_servers = search_for "ktc-database"
 if mysql_servers.length == 1
   node.default["openstack"]["db"]["compute"]["host"] = get_interface_address("management", mysql_servers.first)
 elsif
