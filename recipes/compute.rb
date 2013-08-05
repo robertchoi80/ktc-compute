@@ -11,18 +11,7 @@ class Chef::Recipe
 end
 
 # search for node/s with rabbit recipe
-rabbit_servers = search_for "ktc-messaging"
-if rabbit_servers.length == 1
-  ip = get_interface_address("management", rabbit_servers.first)
-  node.default["openstack"]["compute"]["rabbit"]["host"] = ip
-elsif rabbit_servers.length > 1
-  node.default["openstack"]["compute"]["rabbit"]["ha"] = true
-  ips = []
-  rabbit_servers.each do |s|
-    ips << get_interface_address("management", s)
-  end
-  node.default["openstack"]["mq"]["servers"] = ips
-end
+set_rabbit_servers "compute"
 
 # search for node with memcached recipe
 memcached_servers = search_for "infra-caching"
