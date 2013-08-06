@@ -26,7 +26,7 @@ end
 mysql_servers = search_for "ktc-database"
 if mysql_servers.length == 1
   node.default["openstack"]["db"]["compute"]["host"] = get_interface_address("management", mysql_servers.first)
-elsif
+elsif mysql_servers.length > 1
   node.default["openstack"]["db"]["compute"]["host"] = get_interface_address("management", mysql_servers.first)
   puts "#### TODO: deal with multiple mysql servers, just setting first for now"
 end
