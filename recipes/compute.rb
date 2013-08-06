@@ -36,6 +36,7 @@ chef_gem "chef-rewind"
 require 'chef/rewind'
 
 include_recipe "ktc-utils"
+include_recipe "openstack-compute::identity_registration"
 include_recipe "openstack-compute::compute"
 include_recipe "openstack-compute::conductor"
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
