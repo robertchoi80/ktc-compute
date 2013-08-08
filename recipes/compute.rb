@@ -2,35 +2,18 @@
 # Cookbook Name:: ktc-compute
 # Recipe:: compute
 #
-class ::Chef::Recipe
-  include ::Openstack
-end
+
+#class ::Chef::Recipe
+#  include ::Openstack
+#end
 
 class Chef::Recipe
   include KTCUtils
 end
 
-# search for node/s with rabbit recipe
 set_rabbit_servers "compute"
-
-# search for node with memcached recipe
-memcached_servers = search_for "infra-caching"
-if memcached_servers.length == 1
-  node.default["memcached"]["listen"] = get_interface_address("management", memcached_servers.first)
-elsif memcached_servers.length > 1
-  node.default["memcached"]["listen"] = get_interface_address("management", memcached_servers.first)
-  puts "#### TODO: deal with multiple memcached servers, just setting first for now"
-end
-
-# search for node with mysql recipe
-mysql_servers = search_for "ktc-database"
-if mysql_servers.length == 1
-  node.default["openstack"]["db"]["compute"]["host"] = get_interface_address("management", mysql_servers.first)
-elsif mysql_servers.length > 1
-  node.default["openstack"]["db"]["compute"]["host"] = get_interface_address("management", mysql_servers.first)
-  puts "#### TODO: deal with multiple mysql servers, just setting first for now"
-end
-
+set_memcached_servers
+set_database_servers "compute"
 
 chef_gem "chef-rewind"
 require 'chef/rewind'
