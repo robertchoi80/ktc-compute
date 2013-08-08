@@ -14,7 +14,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+include_attribute "openstack-network::default"
+
+default["openstack"]["compute"]["network"]["service_type"] = "quantum"
+default["openstack"]["compute"]["network"]["plugins"] = [ "linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent" ]
+default["openstack"]["compute"]["network"]["quantum"]["libvirt_vif_driver"] = "nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver"
+default["openstack"]["compute"]["network"]["quantum"]["linuxnet_interface_driver"] = "nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver"
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
