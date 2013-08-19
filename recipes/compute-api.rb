@@ -6,6 +6,9 @@ class Chef::Recipe
   include KTCUtils
 end
 
+d = get_openstack_service_template(get_interface_address("management"), "8774")
+register_service("compute-api", d)
+
 set_rabbit_servers "compute"
 set_memcached_servers
 set_database_servers "compute"
