@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_attribute "openstack-network::default"
+include_attribute "openstack-compute::default"
 
 default["openstack"]["compute"]["network"]["service_type"] = "quantum"
 default["openstack"]["compute"]["network"]["plugins"] = [ "linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent" ]
