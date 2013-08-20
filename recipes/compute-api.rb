@@ -15,6 +15,12 @@ register_member("compute-ec2-api", d2)
 d3 = get_openstack_service_template(get_interface_address("management"), "8773")
 register_member("compute-ec2-admin", d3)
 
+d4 = get_openstack_service_template(get_interface_address("management"), "6081")
+register_member("compute-xvpvnc", d4)
+
+d5 = get_openstack_service_template(get_interface_address("management"), "6080")
+register_member("compute-novnc", d5)
+
 set_rabbit_servers "compute"
 set_memcached_servers
 set_database_servers "compute"
