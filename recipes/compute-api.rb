@@ -26,6 +26,13 @@ set_service_endpoint "network-api"
 set_service_endpoint "compute-api"
 set_service_endpoint "compute-ec2-api"
 set_service_endpoint "compute-ec2-admin"
+set_service_endpoint "compute-xvpvnc"
+set_service_endpoint "compute-novnc"
+
+iface = node["interface_mapping"]["management"]
+node.default["openstack"]["compute"]["libvirt"]["bind_interface"] = iface
+node.default["openstack"]["compute"]["xvpvnc_proxy"]["bind_interface"] = iface
+node.default["openstack"]["compute"]["novnc_proxy"]["bind_interface"] = iface
 
 include_recipe "openstack-common"
 include_recipe "openstack-common::logging"
