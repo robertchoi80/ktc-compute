@@ -11,6 +11,7 @@ end
 
 %w{
   ktc-utils
+  ktc-network
   openstack-common
   openstack-compute
   openstack-object-storage
