@@ -21,6 +21,8 @@ default["openstack"]["compute"]["network"]["service_type"] = "quantum"
 default["openstack"]["compute"]["network"]["plugins"] = [ "linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent" ]
 default["openstack"]["compute"]["network"]["quantum"]["libvirt_vif_driver"] = "nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver"
 default["openstack"]["compute"]["network"]["quantum"]["linuxnet_interface_driver"] = "nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver"
+default["openstack"]["compute"]["network"]["quantum"]["firewall_driver"] = "nova.virt.libvirt.firewall.IptablesFirewallDriver"
+default["openstack"]["compute"]["network"]["quantum"]["security_group_api"] = "nova"
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
