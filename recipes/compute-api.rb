@@ -6,6 +6,9 @@ class Chef::Recipe
   include KTCUtils
 end
 
+d0 = get_openstack_service_template(get_interface_address("management"), "8775")
+register_member("compute-metadata-api", d0)
+
 d1 = get_openstack_service_template(get_interface_address("management"), "8774")
 register_member("compute-api", d1)
 
@@ -29,6 +32,7 @@ set_service_endpoint "identity-admin"
 set_service_endpoint "image-registry"
 set_service_endpoint "image-api"
 set_service_endpoint "network-api"
+set_service_endpoint "compute-metadata-api"
 set_service_endpoint "compute-api"
 set_service_endpoint "compute-ec2-api"
 set_service_endpoint "compute-ec2-admin"

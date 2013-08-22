@@ -63,6 +63,7 @@ linuxnet_interface_driver=<%= node["openstack"]["compute"]["network"]["quantum"]
 firewall_driver=<%= node["openstack"]["compute"]["network"]["quantum"]["firewall_driver"] %>
 security_group_api=<%= node["openstack"]["compute"]["network"]["quantum"]["security_group_api"] %>
 service_quantum_metadata_proxy=<%= node["openstack"]["compute"]["network"]["quantum"]["service_quantum_metadata_proxy"] %>
+metadata_host=<%= node["openstack"]["endpoints"]["compute-metadata-api"]["host"] %>
 quantum_metadata_proxy_shared_secret=<%= @quantum_metadata_proxy_shared_secret %>
 default_floating_pool=<%= node["openstack"]["compute"]["network"]["quantum"]["public_network_name"] %>
 dns_server=<%= node["openstack"]["compute"]["network"]["quantum"]["dns_server"] %>
