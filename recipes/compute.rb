@@ -24,6 +24,7 @@ set_service_endpoint "compute-ec2-api"
 set_service_endpoint "compute-ec2-admin"
 
 include_recipe "ktc-utils"
+include_recipe "ktc-compute::nova-common"
 include_recipe "openstack-compute::compute"
 include_recipe "openstack-compute::conductor"
 
