@@ -23,6 +23,21 @@ default["openstack"]["compute"]["network"]["quantum"]["libvirt_vif_driver"] = "n
 default["openstack"]["compute"]["network"]["quantum"]["linuxnet_interface_driver"] = "nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver"
 default["openstack"]["compute"]["network"]["quantum"]["firewall_driver"] = "nova.virt.libvirt.firewall.IptablesFirewallDriver"
 default["openstack"]["compute"]["network"]["quantum"]["security_group_api"] = "nova"
+default["openstack"]["compute"]["platform"]["api_ec2_packages"] = []
+default["openstack"]["compute"]["platform"]["api_os_compute_packages"] = []
+default["openstack"]["compute"]["platform"]["memcache_python_packages"] = []
+default["openstack"]["compute"]["platform"]["neutron_python_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_api_metadata_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_compute_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_network_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_scheduler_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_conductor_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
+default["openstack"]["compute"]["platform"]["libvirt_packages"] = []
+default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
+default["openstack"]["compute"]["platform"]["common_packages"] = []
+default["openstack"]["compute"]["platform"]["nfs_packages"] = []
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
