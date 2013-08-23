@@ -22,6 +22,8 @@ set_service_endpoint "network-api"
 set_service_endpoint "compute-api"
 set_service_endpoint "compute-ec2-api"
 set_service_endpoint "compute-ec2-admin"
+set_service_endpoint "compute-novnc"
+set_service_endpoint "compute-xvpvnc"
 
 include_recipe "ktc-utils"
 include_recipe "ktc-compute::nova-common"
