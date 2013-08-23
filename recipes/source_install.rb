@@ -10,6 +10,12 @@ user node["openstack"]["compute"]["user"] do
   supports :manage_home => true
 end
 
+%w{ libxml2-dev libxslt-dev }.each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
 git "#{Chef::Config[:file_cache_path]}/nova" do
   repository "https://github.com/kt-cloudware/nova.git"
   reference "develop"
