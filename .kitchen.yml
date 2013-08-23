@@ -1,5 +1,8 @@
 ---
 driver_plugin: vagrant
+# if you want to use chef-zero instead of solo-search
+# uncomment this
+#provisioner: chef_zero
 
 platforms:
 - name: centos-6.4_chef-11.4.4
@@ -14,18 +17,11 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[chef-solo-search]
-    - recipe[ktc-compute]
-  attributes: 
+# add solo search here if you want search support in your suite
+#   - recipe[chef-solo-search]
+    - recipe[test_cook_skeleton]
+  attributes: {}
 
-# example suite
-- name: full
-  run_list:
-    - role[os-base]
-    - role[os-ops-messaging]
-    - recipe[ktc-compute]
-  attributes:
-    
 clusters:
   default:
     - default

@@ -18,4 +18,3 @@ end
 }.each do |dep|
   depends dep
 end
-

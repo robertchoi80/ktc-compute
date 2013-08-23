@@ -6,10 +6,10 @@ task :default => 'test:quick'
 
 namespace :test do
 
-#  RSpec::Core::RakeTask.new(:spec) do |t|
-#    t.pattern = Dir.glob('test/spec/**/*_spec.rb')
-#    t.rspec_opts = "--color -f d"
-#  end
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = Dir.glob('test/spec/**/*_spec.rb')
+    t.rspec_opts = "--color -f d"
+  end
 
   begin
     require 'kitchen/rake_tasks'
@@ -26,7 +26,6 @@ namespace :test do
       canefile = ".cane"
       cane.abc_max = 10
       cane.abc_glob =  '{recipes,libraries,resources,providers}/**/*.rb'
-      cane.abc_exclude = %w{ Chef::Provider::KtcNovaConf#action_create }
       cane.no_style = true
       cane.parallel = true
     end
