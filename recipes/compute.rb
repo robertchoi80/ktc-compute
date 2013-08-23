@@ -19,14 +19,18 @@ set_service_endpoint "identity-admin"
 set_service_endpoint "image-registry"
 set_service_endpoint "image-api"
 set_service_endpoint "network-api"
+set_service_endpoint "compute-metadata-api"
 set_service_endpoint "compute-api"
 set_service_endpoint "compute-ec2-api"
 set_service_endpoint "compute-ec2-admin"
+set_service_endpoint "compute-novnc"
+set_service_endpoint "compute-xvpvnc"
 
 include_recipe "ktc-utils"
+include_recipe "ktc-network::agents"
 include_recipe "ktc-compute::nova-common"
-include_recipe "openstack-compute::compute"
 include_recipe "openstack-compute::conductor"
+include_recipe "openstack-compute::compute"
 
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
 cookbook_file "/etc/libvirt/qemu.conf" do
