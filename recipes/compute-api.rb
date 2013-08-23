@@ -71,6 +71,9 @@ include_recipe "openstack-compute::api-metadata"
 include_recipe "openstack-compute::nova-cert"
 include_recipe "openstack-compute::vncproxy"
 
+chef_gem "chef-rewind"
+require 'chef/rewind'
+
 service_list.each do |service|
   rewind :service => "nova-#{service}" do
     provider Chef::Provider::Service::Upstart
