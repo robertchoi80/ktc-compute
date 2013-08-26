@@ -29,7 +29,6 @@ set_service_endpoint "compute-xvpvnc"
 include_recipe "ktc-utils"
 include_recipe "ktc-network::agents"
 include_recipe "ktc-compute::nova-common"
-include_recipe "openstack-compute::conductor"
 include_recipe "openstack-compute::compute"
 
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
