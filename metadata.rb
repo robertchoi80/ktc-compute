@@ -10,6 +10,7 @@ recipe		        "compute-api", "Include recipes required for control node"
 end
 
 %w{
+  ark
   ktc-utils
   ktc-network
   openstack-common

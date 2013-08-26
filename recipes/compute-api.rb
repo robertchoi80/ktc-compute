@@ -48,6 +48,22 @@ include_recipe "openstack-common"
 include_recipe "openstack-common::logging"
 include_recipe "openstack-object-storage::memcached"
 include_recipe "ktc-compute::nova-common"
+
+service_list = %w{ scheduler api-ec2 api-os-compute api-metadata cert consoleauth novncproxy }
+service_list.each do |service|
+  cookbook_file "/etc/init/nova-#{service}.conf" do
+    source "etc/init/nova-#{service}.conf"
+    action :create
+  end
+end
+
+include_recipe "ark"
+ark "novnc" do
+  path "/usr/share"
+  url node["openstack"]["compute"]["platform"]["novnc"]["url"]
+  action :put
+end
+
 include_recipe "openstack-compute::nova-setup"
 include_recipe "openstack-compute::scheduler"
 include_recipe "openstack-compute::conductor"
@@ -56,4 +72,14 @@ include_recipe "openstack-compute::api-os-compute"
 include_recipe "openstack-compute::api-metadata"
 include_recipe "openstack-compute::nova-cert"
 include_recipe "openstack-compute::vncproxy"
+
+chef_gem "chef-rewind"
+require 'chef/rewind'
+
+service_list.each do |service|
+  rewind :service => "nova-#{service}" do
+    provider Chef::Provider::Service::Upstart
+  end
+end
+
 include_recipe "openstack-compute::identity_registration"
