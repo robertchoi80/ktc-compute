@@ -44,3 +44,12 @@ directory "/var/log/nova" do
   mode 00750
   action :create
 end
+
+cookbook_file "/etc/nova/policy.json" do
+  source "policy.json"
+  owner "#{node["openstack"]["compute"]["user"]}"
+  group "#{node["openstack"]["compute"]["group"]}"
+  mode 00640
+  cookbook "openstack-compute"
+  action :create
+end
