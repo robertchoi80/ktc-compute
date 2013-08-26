@@ -50,6 +50,5 @@ cookbook_file "/etc/nova/policy.json" do
   owner "#{node["openstack"]["compute"]["user"]}"
   group "#{node["openstack"]["compute"]["group"]}"
   mode 00640
-  cookbook "openstack-compute"
   action :create
 end
