@@ -57,9 +57,11 @@ service_list.each do |service|
   end
 end
 
-remote_directory "/usr/share/novnc" do
-  source "usr/share/novnc"
-  action :create
+include_recipe "ark"
+ark "novnc" do
+  path "/usr/share"
+  url "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
+  action :put
 end
 
 include_recipe "openstack-compute::nova-setup"
