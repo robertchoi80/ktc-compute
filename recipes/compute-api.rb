@@ -49,7 +49,7 @@ include_recipe "openstack-common::logging"
 include_recipe "openstack-object-storage::memcached"
 include_recipe "ktc-compute::nova-common"
 
-service_list = %w{ scheduler api-ec2 api-os-compute api-metadata cert consoleauth novncproxy }
+service_list = %w{ scheduler conductor api-ec2 api-os-compute api-metadata cert consoleauth novncproxy }
 service_list.each do |service|
   cookbook_file "/etc/init/nova-#{service}.conf" do
     source "etc/init/nova-#{service}.conf"
