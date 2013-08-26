@@ -34,10 +34,8 @@ default["openstack"]["compute"]["platform"]["compute_scheduler_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_conductor_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
-default["openstack"]["compute"]["platform"]["libvirt_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["nfs_packages"] = []
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
