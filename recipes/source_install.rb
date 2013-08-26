@@ -17,8 +17,8 @@ end
 end
 
 git "#{Chef::Config[:file_cache_path]}/nova" do
-  repository "https://github.com/kt-cloudware/nova.git"
-  reference "develop"
+  repository node["openstack"]["compute"]["platform"]["nova"]["git_repo"]
+  reference node["openstack"]["compute"]["platform"]["nova"]["git_ref"]
   action :sync
   notifies :install, "python_pip[nova-requires]", :immediately
   notifies :run, "bash[install_nova]", :immediately

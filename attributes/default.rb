@@ -37,6 +37,8 @@ default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packag
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
+default["openstack"]["compute"]["platform"]["nova"]["git_repo"] = "https://github.com/kt-cloudware/nova.git"
+default["openstack"]["compute"]["platform"]["nova"]["git_ref"] = "develop"
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
