@@ -60,7 +60,7 @@ end
 include_recipe "ark"
 ark "novnc" do
   path "/usr/share"
-  url "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
+  url node["openstack"]["compute"]["platform"]["novnc"]["url"]
   action :put
 end
 
