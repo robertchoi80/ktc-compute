@@ -5,6 +5,8 @@ site :opscode
 
 metadata
 
+cookbook "ktc-base",
+  github: "cloudware-cookbooks/ktc-base"
 # solo-search for intgration tests
 group :integration do
   cookbook 'chef-solo-search', github: 'edelight/chef-solo-search'
