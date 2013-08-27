@@ -11,6 +11,7 @@ end
 
 %w{
   ark
+  ktc-base
   ktc-utils
   ktc-network
   openstack-common
