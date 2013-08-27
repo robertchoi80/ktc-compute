@@ -11,6 +11,20 @@ class Chef::Recipe
   include KTCUtils
 end
 
+
+#
+# this is a hack to work around metadata service getting installed
+#
+unless node.recipes.include? "ktc-compute::compute-api"
+  # this should "fake out" any calls to include_recipe
+  # seee  https://github.com/opscode/chef/blob/master/lib/chef/run_context.rb#L140-L153
+  run_context.loaded_recipes << "openstack-compute::api-metadata"
+  package "nova-api-metadata" do
+    action :remove
+  end
+end
+
+
 set_rabbit_servers "compute"
 set_memcached_servers
 set_database_servers "compute"

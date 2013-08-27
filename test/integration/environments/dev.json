@@ -1,0 +1,77 @@
+{
+  "name": "dev",
+  "description": "Openstack ktc dev environment",
+  "cookbook_versions": {},
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+    "ha_disabled": "1",
+    "etcd": {
+      "ip": "10.1.1.2",
+      "port": "4001"
+    },
+    "vips": {
+      "mysql": {
+        "ip": "10.1.1.2",
+        "port": "3306"
+      },
+      "identity-api": {
+        "ip": "10.1.1.2",
+        "port": "5000"
+      },
+      "identity-admin": {
+        "ip": "10.1.1.2",
+        "port": "35357"
+      },
+      "compute-api": {
+        "ip": "10.1.1.2",
+        "port": "8774"
+      },
+      "compute-ec2-api": {
+        "ip": "10.1.1.2",
+        "port": "8773"
+      },
+      "compute-ec2-admin": {
+        "ip": "10.1.1.2",
+        "port": "8773"
+      },
+      "compute-xvpvnc": {
+        "ip": "10.1.1.2",
+        "port": "6081"
+      },
+      "compute-novnc": {
+        "ip": "10.1.1.2",
+        "port": "6080"
+      },
+      "noetwork-api": {
+        "ip": "10.1.1.2",
+        "port": "9696"
+      },
+      "image-api": {
+        "ip": "10.1.1.2",
+        "port": "9292"
+      },
+      "image-registry": {
+        "ip": "10.1.1.2",
+        "port": "9191"
+      },
+      "volume-api": {
+        "ip": "10.1.1.2",
+        "port": "8776"
+      },
+      "metering-api": {
+        "ip": "10.1.1.2",
+        "port": "8777"
+      }
+    }
+  },
+  "override_attributes": {
+    "mysql": {
+      "allow_remote_root": true,
+      "root_network_acl": "%"
+    },
+    "openstack": {
+      "developer_mode": true
+    }
+  }
+}
