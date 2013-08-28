@@ -77,3 +77,6 @@ cookbook_file "/etc/libvirt/qemu.conf" do
   mode "0600"
   notifies :restart, resources(:service => "libvirt-bin"), :immediately
 end
+
+vnc_bind_interface = get_interface "management"
+node.set["openstack"]["compute"]["libvirt"]["bind_interface"] = vnc_bind_interface
