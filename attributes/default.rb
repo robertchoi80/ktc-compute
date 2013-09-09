@@ -16,6 +16,7 @@
 # limitations under the License.
 
 include_attribute "openstack-compute::default"
+include_attribute "ktc-base::users"
 
 default["openstack"]["compute"]["network"]["service_type"] = "quantum"
 default["openstack"]["compute"]["network"]["plugins"] = [ "linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent" ]
@@ -47,3 +48,5 @@ default["quantum"]["plugin"] = ""
 default["memcached"]["port"] = "11211"
 
 default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-identity"
+
+node.default['authorization']['sudo']['users']<<"nova"
