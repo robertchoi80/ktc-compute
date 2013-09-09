@@ -68,6 +68,12 @@ service "nova-compute" do
 end
 
 include_recipe "openstack-compute::libvirt"
+group node["openstack"]["compute"]["libvirt"]["group"] do
+  append true 
+  members [node["openstack"]["compute"]["group"]]
+
+  action :create
+end
 
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
 cookbook_file "/etc/libvirt/qemu.conf" do
