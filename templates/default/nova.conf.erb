@@ -1,6 +1,7 @@
 <%= node["openstack"]["compute"]["custom_template_banner"] %>
 
 [DEFAULT]
+host = <%=node[:fqdn]%>
 
 # LOGS/STATE
 debug=<%= node["openstack"]["compute"]["debug"] %>
