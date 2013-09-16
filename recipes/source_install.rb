@@ -2,6 +2,7 @@
 # Recipe:: source_install
 #
 
+include_recipe "sudo"
 include_recipe "python"
 
 user node["openstack"]["compute"]["user"] do
@@ -10,10 +11,12 @@ user node["openstack"]["compute"]["user"] do
   supports :manage_home => true
 end
 
-%w{ libxml2-dev libxslt-dev }.each do |pkg|
-  package pkg do
-    action :install
-  end
+sudo "nova_sudoers" do
+  user     "nova"
+  host     "ALL"
+  runas    "root"
+  nopasswd true
+  commands ["/usr/local/bin/nova-rootwrap"]
 end
 
 git "#{Chef::Config[:file_cache_path]}/nova" do
