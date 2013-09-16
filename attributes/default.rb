@@ -19,7 +19,7 @@ include_attribute "openstack-compute::default"
 include_attribute "ktc-base::users"
 
 default["openstack"]["compute"]["network"]["service_type"] = "quantum"
-default["openstack"]["compute"]["network"]["plugins"] = [ "linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent" ]
+default["openstack"]["compute"]["network"]["plugins"] = ["linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent"]
 default["openstack"]["compute"]["network"]["quantum"]["libvirt_vif_driver"] = "nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver"
 default["openstack"]["compute"]["network"]["quantum"]["linuxnet_interface_driver"] = "nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver"
 default["openstack"]["compute"]["network"]["quantum"]["firewall_driver"] = "nova.virt.libvirt.firewall.IptablesFirewallDriver"
@@ -37,7 +37,7 @@ default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["libvirt_packages"] = [ "libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi" ]
+default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
 default["openstack"]["compute"]["platform"]["nova"]["git_repo"] = "https://github.com/kt-cloudware/nova.git"
 default["openstack"]["compute"]["platform"]["nova"]["git_ref"] = "develop"

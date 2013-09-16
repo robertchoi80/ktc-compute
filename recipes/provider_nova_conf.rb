@@ -7,7 +7,7 @@ class ::Chef
       def action_create
         log "This is ktc nova_conf provider to put quantum_default_private_network option."
         log "Creating the nova.conf #{new_resource.version}"
-      
+
         # do all the searches
         mysql_info = get_access_endpoint("mysql-master", "mysql", "db")
         rabbit_info = get_access_endpoint("rabbitmq-server", "rabbitmq", "queue")
@@ -23,7 +23,7 @@ class ::Chef
         xvpvncproxy_bind = get_bind_endpoint("nova", "xvpvnc-proxy")
         novncserver_bind = get_bind_endpoint("nova", "novnc-server")
         novncproxy_bind = get_bind_endpoint("nova", "novnc-proxy")
-      
+
         net_provider = node["nova"]["network"]["provider"]
         if net_provider == "quantum"
           quantum_info = get_settings_by_recipe("nova-network\\:\\:nova-controller", "quantum")
@@ -31,9 +31,9 @@ class ::Chef
           nova_info = get_access_endpoint("nova-api-metadata", "nova", "api")
           metadata_ip = nova_info["host"]
         end
-      
+
         platform_options = node["nova"]["platform"][new_resource.version]
-      
+
         # Case nova or quantum
         # network_options assemble hash here
         network_options = {}
@@ -66,7 +66,7 @@ class ::Chef
           network_options["firewall_driver"] = node[net_provider]["firewall_driver"]
           network_options["metadata_host"] = metadata_ip
         end
-      
+
         template node["nova"]["config"]["dnsmasq_config_file"] do
           source "dnsmasq-nova.conf.erb"
           owner "root"
@@ -74,8 +74,8 @@ class ::Chef
           mode "0644"
           cookbook "nova"
           variables(
-          "hardware_gateway" => node["nova"]["config"]["hardware_gateway"],
-          "dns_servers" => node["nova"]["config"]["dns_servers"]
+            "hardware_gateway" => node["nova"]["config"]["hardware_gateway"],
+            "dns_servers" => node["nova"]["config"]["dns_servers"]
           )
         end
 
@@ -144,7 +144,7 @@ class ::Chef
         end
         new_resource.updated_by_last_action(t.updated_by_last_action?)
       end
-    end  
+    end
   end
 end
 
@@ -154,4 +154,3 @@ require 'chef/rewind'
 rewind :nova_conf => "/etc/nova/nova.conf" do
   provider Chef::Provider::KtcNovaConf
 end
-

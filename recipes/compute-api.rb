@@ -2,44 +2,63 @@
 # Recipe:: compute-api
 #
 
-class Chef::Recipe
-  include KTCUtils
-end
+include_recipe "services"
+include_recipe "ktc-utils"
 
-d0 = get_openstack_service_template(get_interface_address("management"), "8775")
-register_member("compute-metadata-api", d0)
+iface = KTC::Network.if_lookup "management"
+ip = KTC::Network.address "management"
 
-d1 = get_openstack_service_template(get_interface_address("management"), "8774")
-register_member("compute-api", d1)
+Services::Connection.new run_context: run_context
+compute_metadata_api = Services::Member.new node.default.fqdn,
+  service: "compute-metadata-api",
+  port: 8775,
+  proto: "tcp",
+  ip: ip
 
-d2 = get_openstack_service_template(get_interface_address("management"), "8773")
-register_member("compute-ec2-api", d2)
+compute_metadata_api.save
 
-d3 = get_openstack_service_template(get_interface_address("management"), "8773")
-register_member("compute-ec2-admin", d3)
+compute_api = Services::Member.new node.default.fqdn,
+  service: "compute-api",
+  port: 8774,
+  proto: "tcp",
+  ip: ip
 
-d4 = get_openstack_service_template(get_interface_address("management"), "6081")
-register_member("compute-xvpvnc", d4)
+compute_api.save
 
-d5 = get_openstack_service_template(get_interface_address("management"), "6080")
-register_member("compute-novnc", d5)
+compute_ec2_api = Services::Member.new node.default.fqdn,
+  service: "compute-ec2-api",
+  port: 8773,
+  proto: "tcp",
+  ip: ip
 
-set_rabbit_servers "compute"
-set_memcached_servers
-set_database_servers "compute"
-set_service_endpoint "identity-api"
-set_service_endpoint "identity-admin"
-set_service_endpoint "image-registry"
-set_service_endpoint "image-api"
-set_service_endpoint "network-api"
-set_service_endpoint "compute-metadata-api"
-set_service_endpoint "compute-api"
-set_service_endpoint "compute-ec2-api"
-set_service_endpoint "compute-ec2-admin"
-set_service_endpoint "compute-xvpvnc"
-set_service_endpoint "compute-novnc"
+compute_ec2_api.save
 
-iface = node["interface_mapping"]["management"]
+compute_ec2_admin = Services::Member.new node.default.fqdn,
+  service: "compute-ec2-admin",
+  port: 8773,
+  proto: "tcp",
+  ip: ip
+
+compute_ec2_admin.save
+
+compute_xvpvnc = Services::Member.new node.default.fqdn,
+  service: "compute-xvpvnc",
+  port: 6081,
+  proto: "tcp",
+  ip: ip
+
+compute_xvpvnc.save
+
+compute_novnc = Services::Member.new node.default.fqdn,
+  service: "compute-novnc",
+  port: 6080,
+  proto: "tcp",
+  ip: ip
+
+compute_novnc.save
+
+KTC::Attributes.set
+
 node.default["openstack"]["compute"]["libvirt"]["bind_interface"] = iface
 node.default["openstack"]["compute"]["xvpvnc_proxy"]["bind_interface"] = iface
 node.default["openstack"]["compute"]["novnc_proxy"]["bind_interface"] = iface
@@ -49,7 +68,17 @@ include_recipe "openstack-common::logging"
 include_recipe "openstack-object-storage::memcached"
 include_recipe "ktc-compute::nova-common"
 
-service_list = %w{ scheduler conductor api-ec2 api-os-compute api-metadata cert consoleauth novncproxy }
+service_list = %w{
+  scheduler
+  conductor
+  api-ec2
+  api-os-compute
+  api-metadata
+  cert
+  consoleauth
+  novncproxy
+}
+
 service_list.each do |service|
   cookbook_file "/etc/init/nova-#{service}.conf" do
     source "etc/init/nova-#{service}.conf"

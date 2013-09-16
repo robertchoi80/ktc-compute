@@ -1,7 +1,10 @@
+name              "ktc-compute"
 maintainer        "KT Cloudware, Inc."
+maintainer_email  "wil.reichert@kt.com"
+license           "All rights reserved"
 description       "Wrapper cookbook of rcb's nova cookbook"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "2.0.1"
+version           "2.1.1"
 recipe		        "compute", "Include recipes required for compute node"
 recipe		        "compute-api", "Include recipes required for control node"
 
@@ -9,15 +12,12 @@ recipe		        "compute-api", "Include recipes required for control node"
   supports os
 end
 
-%w{
-  ark
-  ktc-base
-  ktc-utils
-  ktc-network
-  openstack-common
-  openstack-compute
-  openstack-object-storage
-}.each do |dep|
-  depends dep
-end
+depends "ark", "~> 0.3.2"
+depends "ktc-utils", "~> 0.3.2"
+depends "ktc-network", "~> 0.2.0"
+depends "openstack-common", "~> 0.4.3"
+depends "openstack-compute", "~> 7.0.0"
+depends "openstack-object-storage", "~> 1.1.0"
+depends "python", "~> 1.4.0"
+depends "services", "~> 1.0.6"
 

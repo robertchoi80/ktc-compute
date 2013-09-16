@@ -39,7 +39,7 @@ bash "install_nova" do
 end
 
 directory "/var/log/nova" do
-  owner "#{node["openstack"]["compute"]["user"]}"
+  owner node["openstack"]["compute"]["user"]
   group "adm"
   mode 00750
   action :create
