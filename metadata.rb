@@ -20,4 +20,4 @@ depends "openstack-compute", "~> 7.0.0"
 depends "openstack-object-storage", "~> 1.1.0"
 depends "python", "~> 1.4.0"
 depends "services", "~> 1.0.6"
-
+depends "sudo"
