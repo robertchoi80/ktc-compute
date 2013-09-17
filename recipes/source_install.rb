@@ -19,6 +19,14 @@ sudo "nova_sudoers" do
   commands ["/usr/local/bin/nova-rootwrap"]
 end
 
+# Install pip-requires using ubuntu packages first, then install the rest with pip.
+# Prefer installing ubuntu pakcages to compiling python modules on nodes.
+node["openstack"]["compute"]["platform"]["pip_requires_packages"].each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
 git "#{Chef::Config[:file_cache_path]}/nova" do
   repository node["openstack"]["compute"]["platform"]["nova"]["git_repo"]
   reference node["openstack"]["compute"]["platform"]["nova"]["git_ref"]
@@ -27,7 +35,7 @@ git "#{Chef::Config[:file_cache_path]}/nova" do
   notifies :run, "bash[install_nova]", :immediately
 end
 
-python_pip "nova-requires" do
+python_pip "nova-pip-requires" do
   package_name "#{Chef::Config[:file_cache_path]}/nova/tools/pip-requires"
   options "-r"
   action :nothing
