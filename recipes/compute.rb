@@ -49,7 +49,7 @@ end
 
 include_recipe "openstack-compute::libvirt"
 group node["openstack"]["compute"]["libvirt"]["group"] do
-  append true 
+  append true
   members [node["openstack"]["compute"]["group"]]
 
   action :create
