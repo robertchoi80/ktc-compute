@@ -26,7 +26,7 @@ namespace :test do
       canefile = ".cane"
       cane.abc_max = 10
       cane.abc_glob =  '{recipes,libraries,resources,providers}/**/*.rb'
-      cane.abc_exclude = %w{ Chef::Provider::KtcNovaConf#action_create }
+      cane.abc_exclude = %w(Chef::Provider::KtcNovaConf#action_create)
       cane.no_style = true
       cane.parallel = true
     end
@@ -59,7 +59,7 @@ namespace :test do
   task :quick do
     Rake::Task['test:quality'].invoke
     Rake::Task['test:foodcritic'].invoke
-    Rake::Task['test:spec'].invoke
+    #Rake::Task['test:spec'].invoke
     Rake::Task['test:tailor'].invoke
   end
 

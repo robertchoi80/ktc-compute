@@ -3,30 +3,10 @@
 # Recipe:: compute
 #
 
-#class ::Chef::Recipe
-#  include ::Openstack
-#end
-
-class Chef::Recipe
-  include KTCUtils
-end
-
-set_rabbit_servers "compute"
-set_memcached_servers
-set_database_servers "compute"
-set_service_endpoint "identity-api"
-set_service_endpoint "identity-admin"
-set_service_endpoint "image-registry"
-set_service_endpoint "image-api"
-set_service_endpoint "network-api"
-set_service_endpoint "compute-metadata-api"
-set_service_endpoint "compute-api"
-set_service_endpoint "compute-ec2-api"
-set_service_endpoint "compute-ec2-admin"
-set_service_endpoint "compute-novnc"
-set_service_endpoint "compute-xvpvnc"
-
 include_recipe "ktc-utils"
+
+KTC::Attributes.set
+
 include_recipe "ktc-network::agents"
 include_recipe "ktc-compute::nova-common"
 
@@ -69,7 +49,7 @@ end
 
 include_recipe "openstack-compute::libvirt"
 group node["openstack"]["compute"]["libvirt"]["group"] do
-  append true 
+  append true
   members [node["openstack"]["compute"]["group"]]
 
   action :create
@@ -84,5 +64,5 @@ cookbook_file "/etc/libvirt/qemu.conf" do
   notifies :restart, resources(:service => "libvirt-bin"), :immediately
 end
 
-vnc_bind_interface = get_interface "management"
-node.set["openstack"]["compute"]["libvirt"]["bind_interface"] = vnc_bind_interface
+vb_iface = KTC::Network.if_lookup "management"
+node.set["openstack"]["compute"]["libvirt"]["bind_interface"] = vb_iface

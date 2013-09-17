@@ -10,8 +10,8 @@ end
 
 cookbook_file "/etc/nova/policy.json" do
   source "policy.json"
-  owner "#{node["openstack"]["compute"]["user"]}"
-  group "#{node["openstack"]["compute"]["group"]}"
+  owner node["openstack"]["compute"]["user"]
+  group node["openstack"]["compute"]["group"]
   mode 00640
   action :create
 end

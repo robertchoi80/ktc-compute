@@ -2,6 +2,7 @@
 # Recipe:: source_install
 #
 
+include_recipe "sudo"
 include_recipe "python"
 
 user node["openstack"]["compute"]["user"] do
@@ -10,7 +11,17 @@ user node["openstack"]["compute"]["user"] do
   supports :manage_home => true
 end
 
-%w{ libxml2-dev libxslt-dev }.each do |pkg|
+sudo "nova_sudoers" do
+  user     "nova"
+  host     "ALL"
+  runas    "root"
+  nopasswd true
+  commands ["/usr/local/bin/nova-rootwrap"]
+end
+
+# Install pip-requires using ubuntu packages first, then install the rest with pip.
+# Prefer installing ubuntu pakcages to compiling python modules on nodes.
+node["openstack"]["compute"]["platform"]["pip_requires_packages"].each do |pkg|
   package pkg do
     action :install
   end
@@ -24,7 +35,7 @@ git "#{Chef::Config[:file_cache_path]}/nova" do
   notifies :run, "bash[install_nova]", :immediately
 end
 
-python_pip "nova-requires" do
+python_pip "nova-pip-requires" do
   package_name "#{Chef::Config[:file_cache_path]}/nova/tools/pip-requires"
   options "-r"
   action :nothing
@@ -39,7 +50,7 @@ bash "install_nova" do
 end
 
 directory "/var/log/nova" do
-  owner "#{node["openstack"]["compute"]["user"]}"
+  owner node["openstack"]["compute"]["user"]
   group "adm"
   mode 00750
   action :create
