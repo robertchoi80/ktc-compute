@@ -25,12 +25,8 @@ suites:
     - recipe[ktc-block-storage]
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
-  attributes: 
-    authorization:
-      sudo:
-        users:
-          - vagrant
-        passwordless: true
+    - recipe[ktc-compute::compute]
+  attributes:
     etcd:
       args: '-c 127.0.0.1:4001 -s 127.0.0.1:7001 -f'
       servers:
@@ -41,6 +37,11 @@ suites:
       root_network_acl: '%'
     openstack:
       developer_mode: true
+    authorization:
+      sudo:
+        users:
+          - vagrant
+        passwordless: true
 
 clusters:
   default:
