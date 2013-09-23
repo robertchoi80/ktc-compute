@@ -27,7 +27,7 @@ platform_options["nfs_packages"].each do |pkg|
   package pkg do
     options platform_options["package_overrides"]
 
-    action :upgrade
+    action :install
   end
 end
 
@@ -61,7 +61,7 @@ cookbook_file "/etc/libvirt/qemu.conf" do
   owner "nova"
   group "nova"
   mode "0600"
-  notifies :restart, resources(:service => "libvirt-bin"), :immediately
+  notifies :restart, "service[libvirt-bin]", :immediately
 end
 
 vb_iface = KTC::Network.if_lookup "management"
