@@ -55,3 +55,10 @@ directory "/var/log/nova" do
   mode 00750
   action :create
 end
+
+directory "/var/lib/nova/instances" do
+  owner node["openstack"]["compute"]["user"]
+  group node["openstack"]["compute"]["group"]
+  mode 00755
+  action :create
+end
