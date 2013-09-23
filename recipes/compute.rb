@@ -15,6 +15,21 @@ cookbook_file "/etc/init/nova-compute.conf" do
   action :create
 end
 
+if platform?(%w(ubuntu))
+  if node["openstack"]["compute"]["libvirt"]["virt_type"] == "kvm"
+    compute_compute_package = "kvm"
+  elsif node["openstack"]["compute"]["libvirt"]["virt_type"] == "qemu"
+    compute_compute_package = "qemu"
+  end
+end
+
+platform_options = node["openstack"]["compute"]["platform"]
+package compute_compute_package do
+  options platform_options["package_overrides"]
+
+  action :install
+end
+
 # openstack-compute::compute recipe includes openstack-compute::api-metadata,
 # which should not run on compute node. So we don't include openstack-compute::compute
 # here, instead we define only necessary resources here.
@@ -22,12 +37,11 @@ end
 # Installing nfs client packages because in grizzly, cinder nfs is supported
 # Never had to install iscsi packages because nova-compute package depends it
 # So volume-attach 'just worked' before - alop
-platform_options = node["openstack"]["compute"]["platform"]
 platform_options["nfs_packages"].each do |pkg|
   package pkg do
     options platform_options["package_overrides"]
 
-    action :upgrade
+    action :install
   end
 end
 
@@ -61,7 +75,7 @@ cookbook_file "/etc/libvirt/qemu.conf" do
   owner "nova"
   group "nova"
   mode "0600"
-  notifies :restart, resources(:service => "libvirt-bin"), :immediately
+  notifies :restart, "service[libvirt-bin]", :immediately
 end
 
 vb_iface = KTC::Network.if_lookup "management"

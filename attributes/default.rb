@@ -36,7 +36,15 @@ default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["pip_requires_packages"] = %w{ libxml2-dev libxslt-dev python-sqlalchemy python-amqplib python-anyjson python-boto python-eventlet python-kombu python-cheetah python-libxml2 python-routes python-webob python-greenlet python-paste python-pastedeploy python-migrate python-netaddr python-suds python-paramiko python-pyasn1 python-babel python-iso8601 python-httplib2 python-setuptools-git python-cinderclient python-glanceclient python-keystoneclient websockify python-numpy python-oslo.config }
+default["openstack"]["compute"]["platform"]["pip_requires_packages"] = %w{ 
+  libxml2-dev libxslt-dev python-sqlalchemy python-amqplib python-anyjson 
+  python-boto python-eventlet python-kombu python-cheetah python-libxml2 
+  python-routes python-webob python-greenlet python-paste python-pastedeploy 
+  python-migrate python-netaddr python-suds python-paramiko python-pyasn1 
+  python-babel python-iso8601 python-httplib2 python-setuptools-git 
+  python-cinderclient python-glanceclient python-keystoneclient websockify 
+  python-numpy python-oslo.config 
+}
 default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
 default["openstack"]["compute"]["platform"]["nova"]["git_repo"] = "https://github.com/kt-cloudware/nova.git"

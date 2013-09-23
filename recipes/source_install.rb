@@ -31,7 +31,7 @@ git "#{Chef::Config[:file_cache_path]}/nova" do
   repository node["openstack"]["compute"]["platform"]["nova"]["git_repo"]
   reference node["openstack"]["compute"]["platform"]["nova"]["git_ref"]
   action :sync
-  notifies :install, "python_pip[nova-requires]", :immediately
+  notifies :install, "python_pip[nova-pip-requires]", :immediately
   notifies :run, "bash[install_nova]", :immediately
 end
 
