@@ -15,6 +15,10 @@ cookbook_file "/etc/init/nova-compute.conf" do
   action :create
 end
 
+# openstack-compute::compute recipe includes openstack-compute::api-metadata,
+# which should not run on compute node. So we don't include openstack-compute::compute
+# here, instead we define only necessary resources here.
+
 if platform?(%w(ubuntu))
   if node["openstack"]["compute"]["libvirt"]["virt_type"] == "kvm"
     compute_compute_package = "kvm"
@@ -29,10 +33,6 @@ package compute_compute_package do
 
   action :install
 end
-
-# openstack-compute::compute recipe includes openstack-compute::api-metadata,
-# which should not run on compute node. So we don't include openstack-compute::compute
-# here, instead we define only necessary resources here.
 
 # Installing nfs client packages because in grizzly, cinder nfs is supported
 # Never had to install iscsi packages because nova-compute package depends it
@@ -67,6 +67,20 @@ group node["openstack"]["compute"]["libvirt"]["group"] do
   members [node["openstack"]["compute"]["group"]]
 
   action :create
+end
+
+# UCLOUDNG-726 : disable KSM(kernel same-page merging) on all cnodes
+cookbook_file "/etc/default/qemu-kvm" do
+  source "qemu-kvm"
+  owner "root"
+  group "root"
+  mode "0644"
+  notifies :restart, "service[qemu-kvm]", :immediately
+end
+
+service "qemu-kvm" do
+  supports :start => true, :restart => true
+  action :start
 end
 
 # Add cgroup_device_acl option to /etc/libvirt/qemu.conf
