@@ -16,6 +16,7 @@ compute_metadata_api = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_metadata_api.save
+KTC::Network.add_service_nat "compute-metadata-api", 8775
 
 compute_api = Services::Member.new node["fqdn"],
   service: "compute-api",
@@ -24,6 +25,7 @@ compute_api = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_api.save
+KTC::Network.add_service_nat "compute-api", 8774
 
 compute_ec2_api = Services::Member.new node["fqdn"],
   service: "compute-ec2-api",
@@ -32,6 +34,7 @@ compute_ec2_api = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_ec2_api.save
+KTC::Network.add_service_nat "compute-ec2-api", 8773
 
 compute_ec2_admin = Services::Member.new node["fqdn"],
   service: "compute-ec2-admin",
@@ -40,6 +43,7 @@ compute_ec2_admin = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_ec2_admin.save
+KTC::Network.add_service_nat "compute-ec2-admin", 8773
 
 compute_xvpvnc = Services::Member.new node["fqdn"],
   service: "compute-xvpvnc",
@@ -48,6 +52,7 @@ compute_xvpvnc = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_xvpvnc.save
+KTC::Network.add_service_nat "compute-xvpvnc", 6081
 
 compute_novnc = Services::Member.new node["fqdn"],
   service: "compute-novnc",
@@ -56,6 +61,7 @@ compute_novnc = Services::Member.new node["fqdn"],
   ip: ip
 
 compute_novnc.save
+KTC::Network.add_service_nat "compute-novnc", 6080
 
 KTC::Attributes.set
 
