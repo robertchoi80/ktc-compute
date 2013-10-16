@@ -206,6 +206,12 @@ osapi_compute_extension=<%= p %>
 <% end %>
 <% end %>
 
+instance_usage_audit=True
+instance_usage_audit_period=hour
+notify_on_state_change=vm_and_task_state
+notification_driver=nova.openstack.common.notifier.rpc_notifier
+notification_driver=ceilometer.compute.nova_notifier
+
 [conductor]
 
 use_local=<%= node["openstack"]["compute"]["conductor"]["use_local"] %>
