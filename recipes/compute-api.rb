@@ -9,7 +9,7 @@ iface = KTC::Network.if_lookup "management"
 ip = KTC::Network.address "management"
 
 Services::Connection.new run_context: run_context
-compute_metadata_api = Services::Member.new node.default.fqdn,
+compute_metadata_api = Services::Member.new node["fqdn"],
   service: "compute-metadata-api",
   port: 8775,
   proto: "tcp",
@@ -17,7 +17,7 @@ compute_metadata_api = Services::Member.new node.default.fqdn,
 
 compute_metadata_api.save
 
-compute_api = Services::Member.new node.default.fqdn,
+compute_api = Services::Member.new node["fqdn"],
   service: "compute-api",
   port: 8774,
   proto: "tcp",
@@ -25,7 +25,7 @@ compute_api = Services::Member.new node.default.fqdn,
 
 compute_api.save
 
-compute_ec2_api = Services::Member.new node.default.fqdn,
+compute_ec2_api = Services::Member.new node["fqdn"],
   service: "compute-ec2-api",
   port: 8773,
   proto: "tcp",
@@ -33,7 +33,7 @@ compute_ec2_api = Services::Member.new node.default.fqdn,
 
 compute_ec2_api.save
 
-compute_ec2_admin = Services::Member.new node.default.fqdn,
+compute_ec2_admin = Services::Member.new node["fqdn"],
   service: "compute-ec2-admin",
   port: 8773,
   proto: "tcp",
@@ -41,7 +41,7 @@ compute_ec2_admin = Services::Member.new node.default.fqdn,
 
 compute_ec2_admin.save
 
-compute_xvpvnc = Services::Member.new node.default.fqdn,
+compute_xvpvnc = Services::Member.new node["fqdn"],
   service: "compute-xvpvnc",
   port: 6081,
   proto: "tcp",
@@ -49,7 +49,7 @@ compute_xvpvnc = Services::Member.new node.default.fqdn,
 
 compute_xvpvnc.save
 
-compute_novnc = Services::Member.new node.default.fqdn,
+compute_novnc = Services::Member.new node["fqdn"],
   service: "compute-novnc",
   port: 6080,
   proto: "tcp",
