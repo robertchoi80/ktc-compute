@@ -178,7 +178,8 @@ max_cores=<%= node["openstack"]["compute"]["config"]["cpu_allocation_ratio"].to_
 max_instances_per_host=<%= node["openstack"]["compute"]["config"]["max_instances_per_host"] %>
 
 # If true, force creation of config drive regardless of if --config-drive was specified in the API call
-force_config_drive=<%= node["openstack"]["compute"]["config"]["force_config_drive"] %>
+# UCLOUDNG-812 : remove force_config_drive option in nova.conf on all cnodes
+#force_config_drive=<%= node["openstack"]["compute"]["config"]["force_config_drive"] %>
 
 <% if %w(fedora redhat centos).include? node.platform -%>
 # Adding support for non-modded euca2ools to display ip address info
