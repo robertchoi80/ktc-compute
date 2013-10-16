@@ -52,7 +52,6 @@ default["openstack"]["compute"]["platform"]["nova"]["git_ref"] = "develop"
 default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "5.0"
 default["openstack"]["compute"]["config"]["ram_allocation_ratio"] = "0.95"
 default["openstack"]["compute"]["config"]["max_instances_per_host"] = "80"
-default["openstack"]["compute"]["config"]["force_config_drive"] = false
 
 
 # referenced in recipes/compute.rb
