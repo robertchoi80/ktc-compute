@@ -105,6 +105,7 @@ include_recipe "openstack-compute::vncproxy"
 chef_gem "chef-rewind"
 require 'chef/rewind'
 
+#TODO make this centos friendly
 service_list.each do |service|
   rewind :service => "nova-#{service}" do
     provider Chef::Provider::Service::Upstart
