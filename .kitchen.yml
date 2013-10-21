@@ -43,6 +43,8 @@ suites:
       server_repl_password: 'repl'
     openstack:
       developer_mode: true
+      compute:
+        driver: 'fake.FakeDriver'
     authorization:
       sudo:
         users:
