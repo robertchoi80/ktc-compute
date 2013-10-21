@@ -3,7 +3,7 @@ driver_plugin: vagrant
 provisioner: chef_zero
 driver_config:
   customize:
-      memory: 512
+    memory: 512
 
 platforms:
 - name: centos-6.4_chef-11.4.4
@@ -45,6 +45,9 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
+      network:
+        ng_l3:
+          private_cidr: '172.16.0.0/22'
     authorization:
       sudo:
         users:
