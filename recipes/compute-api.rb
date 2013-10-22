@@ -106,6 +106,9 @@ chef_gem "chef-rewind"
 require 'chef/rewind'
 
 #TODO make this centos friendly
+# The upstream cookbook uses attribs for platform those aren't being used here
+#  -JN  This is why it fails on centos
+#  see: https://github.com/stackforge/cookbook-openstack-compute/blob/master/recipes/vncproxy.rb#L40
 service_list.each do |service|
   rewind :service => "nova-#{service}" do
     provider Chef::Provider::Service::Upstart
