@@ -5,7 +5,7 @@ driver_config:
   customize:
     memory: 512
 
-#platforms:
+platforms:
 #- name: centos-6.4_chef-11.4.4
 #  driver_config:
 #    box: opscode-centos-6.4_chef-11.4.4
