@@ -1,12 +1,16 @@
 ---
 driver_plugin: vagrant
 provisioner: chef_zero
+driver_config:
+  customize:
+    memory: 512
 
 platforms:
 #- name: centos-6.4_chef-11.4.4
 #  driver_config:
 #    box: opscode-centos-6.4_chef-11.4.4
 #    box_url:  https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
+
 - name: ubuntu-12.04_chef-11.4.4
   driver_config:
     box: opscode-ubuntu-12.04_chef-11.4.4
@@ -40,6 +44,11 @@ suites:
       server_repl_password: 'repl'
     openstack:
       developer_mode: true
+      compute:
+        driver: 'fake.FakeDriver'
+      network:
+        ng_l3:
+          private_cidr: '172.16.0.0/22'
     authorization:
       sudo:
         users:
