@@ -131,7 +131,7 @@ xvpvncproxy_port=<%= node["openstack"]["compute"]["xvpvnc_proxy"]["service_port"
 novncproxy_host=<%= @novncproxy_bind_host %>
 novncproxy_port=<%= node["openstack"]["compute"]["novnc_proxy"]["service_port"] %>
 
-vncserver_listen=<%= @vncserver_listen %>
+vncserver_listen=<%= node["openstack"]["compute"]["vncserver_listen"] %>
 vncserver_proxyclient_address=<%= @vncserver_proxyclient_address %>
 
 # store consoleauth tokens in memcached
