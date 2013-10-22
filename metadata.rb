@@ -12,12 +12,12 @@ recipe		        "compute-api", "Include recipes required for control node"
   supports os
 end
 
-depends "ark", "~> 0.3.2"
-depends "ktc-utils", "~> 0.3.2"
-depends "ktc-network", "~> 0.2.0"
+depends "ark", ">= 0.3.2"
+depends "ktc-utils", ">= 0.3.2"
+depends "ktc-network", ">= 0.2.1"
 depends "openstack-common", "~> 0.4.3"
 depends "openstack-compute", "~> 7.0.0"
 depends "openstack-object-storage", "~> 1.1.0"
-depends "python", "~> 1.4.0"
-depends "services", "~> 1.1.0"
+depends "python", ">= 1.4.0"
+depends "services", ">= 1.1.0"
 depends "sudo"
