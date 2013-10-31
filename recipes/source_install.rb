@@ -8,6 +8,7 @@ include_recipe "python"
 user node["openstack"]["compute"]["user"] do
   home "/var/lib/nova"
   shell "/bin/sh"
+  system  true
   supports :manage_home => true
 end
 
