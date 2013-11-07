@@ -6,11 +6,10 @@ driver_config:
     memory: 512
 
 platforms:
-#- name: centos-6.4_chef-11.4.4
-#  driver_config:
-#    box: opscode-centos-6.4_chef-11.4.4
-#    box_url:  https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
-
+- name: centos-6.4_chef-11.4.4
+  driver_config:
+    box: opscode-centos-6.4_chef-11.4.4
+    box_url:  https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
 - name: ubuntu-12.04_chef-11.4.4
   driver_config:
     box: opscode-ubuntu-12.04_chef-11.4.4
@@ -27,9 +26,10 @@ suites:
     - recipe[ktc-identity]
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
+    - recipe[sensu::default]
+    - recipe[collectd::client]
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
-    - recipe[ktc-compute::compute]
   attributes:
     etcd:
       args: '-c 127.0.0.1:4001 -s 127.0.0.1:7001 -f'
@@ -46,9 +46,24 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
+      endpoints:
+        compute-metadata-api:
+          host: 'xxx.xxx.xxx.xxx'
+          port: '8775'
       network:
         ng_l3:
-          private_cidr: '172.16.0.0/22'
+          setup_entities: true
+          physical_network: 'private-net-01'
+          private_subnet: 'private-subnet-01'
+          private_cidr: '10.18.18.0/24'
+          private_nameservers:
+            - '8.8.8.8'
+          heartbeat_network: 'heartbeat'
+          heartbeat_subnet: 'heartbeat'
+          heartbeat_cidr: '10.10.10.0/24'
+          heartbeat_nameservers:
+            - '8.8.8.8'
+
     authorization:
       sudo:
         users:
@@ -69,7 +84,6 @@ suites:
     - recipe[collectd::client]
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
-    - recipe[ktc-compute::compute]
   attributes:
     etcd:
       args: '-c 127.0.0.1:4001 -s 127.0.0.1:7001 -f'
@@ -94,4 +108,3 @@ suites:
         users:
           - vagrant
         passwordless: true
-
