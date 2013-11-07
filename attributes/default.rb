@@ -68,16 +68,16 @@ default["openstack"]["compute"]["vncserver_listen"] = "0.0.0.0"
 
 # process monitoring
 default["openstack"]["compute"]["api_processes"] = [
-  { "name" : "nova-scheduler", "shortname" : "nova-scheduler"},
-  { "name" : "nova-conductor", "shortname" : "nova-conductor"},
-  { "name" : "nova-api-ec2", "shortname" : "nova-api-ec2"},
-  { "name" : "nova-api-metadata", "shortname" : "nova-api-metada"},
-  { "name" : "nova-api-os-compute", "shortname" : "nova-api-os-com"},
-  { "name" : "nova-novncproxy", "shortname" : "nova-novncproxy"},
-  { "name" : "nova-consoleauth", "shortname" : "nova-consoleaut"}
+  { "name" => "nova-scheduler", "shortname" => "nova-scheduler" },
+  { "name" => "nova-conductor", "shortname" => "nova-conductor" },
+  { "name" => "nova-api-ec2", "shortname" => "nova-api-ec2" },
+  { "name" => "nova-api-metadata", "shortname" => "nova-api-metada" },
+  { "name" => "nova-api-os-compute", "shortname" => "nova-api-os-com" },
+  { "name" => "nova-novncproxy", "shortname" => "nova-novncproxy" },
+  { "name" => "nova-consoleauth", "shortname" => "nova-consoleaut" }
 ]
 
 default["openstack"]["compute"]["compute_processes"] = [
-  { "name" : "nova-compute", "shortname" : "nova-compute"},
-  { "name" : "libvirt", "shortname" : "libvirt"}
+  { "name" => "nova-compute", "shortname" => "nova-compute" },
+  { "name" => "libvirt", "shortname" => "libvirt" }
 ]
