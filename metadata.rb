@@ -4,7 +4,7 @@ maintainer_email  "wil.reichert@kt.com"
 license           "All rights reserved"
 description       "Wrapper cookbook of rcb's nova cookbook"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.1.2'
+version '2.1.4'
 recipe		        "compute", "Include recipes required for compute node"
 recipe		        "compute-api", "Include recipes required for control node"
 
@@ -13,8 +13,8 @@ recipe		        "compute-api", "Include recipes required for control node"
 end
 
 depends "ark", ">= 0.3.2"
-depends "ktc-utils", ">= 0.3.2"
-depends "ktc-network", ">= 0.2.1"
+depends "ktc-utils", ">= 0.3.6"
+depends "ktc-network", ">= 0.2.5"
 depends "openstack-common", "~> 0.4.3"
 depends "openstack-compute", "~> 7.0.0"
 depends "openstack-object-storage", "~> 1.1.0"

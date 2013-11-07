@@ -62,7 +62,7 @@ default["memcached"]["port"] = "11211"
 default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-identity"
 
 
-#vncserver listen changed 
+#vncserver listen changed
 default["openstack"]["compute"]["vncserver_listen"] = "0.0.0.0"
 
 

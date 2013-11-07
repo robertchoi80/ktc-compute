@@ -68,8 +68,8 @@ metadata_host=<%= node["openstack"]["endpoints"]["compute-metadata-api"]["host"]
 quantum_metadata_proxy_shared_secret=<%= @quantum_metadata_proxy_shared_secret %>
 default_floating_pool=<%= node["openstack"]["compute"]["network"]["quantum"]["public_network_name"] %>
 dns_server=<%= node["openstack"]["compute"]["network"]["quantum"]["dns_server"] %>
-<% if node["openstack"]["network"]["linuxbridge"]["physical_network"] -%>
-pre_defined_network=<%= node["openstack"]["network"]["linuxbridge"]["physical_network"] %>
+<% if node["openstack"]["network"]["ng_l3"] -%>
+pre_defined_network=<%= node["openstack"]["network"]["ng_l3"]["private_network"] %>
 <% end -%>
 
 <% when "nova" -%>

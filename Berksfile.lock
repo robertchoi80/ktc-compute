@@ -156,9 +156,6 @@
     "openstack-dashboard": {
       "locked_version": "7.0.0"
     },
-    "apache2": {
-      "locked_version": "1.7.0"
-    },
     "openstack-metering": {
       "locked_version": "7.0.4"
     },
