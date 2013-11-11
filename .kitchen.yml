@@ -27,6 +27,8 @@ suites:
     - recipe[ktc-identity]
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
+    - recipe[sensu::default]
+    - recipe[collectd::client]
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
     - recipe[ktc-compute::compute]
