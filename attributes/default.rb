@@ -65,6 +65,8 @@ default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-identity"
 #vncserver listen changed
 default["openstack"]["compute"]["vncserver_listen"] = "0.0.0.0"
 
+# use syslog by default
+default["openstack"]["compute"]["syslog"]["use"] = true
 
 # process monitoring
 default["openstack"]["compute"]["api_processes"] = [
