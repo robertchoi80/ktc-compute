@@ -62,11 +62,14 @@ default["memcached"]["port"] = "11211"
 default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-identity"
 
 
-#vncserver listen changed
+# vncserver listen changed
 default["openstack"]["compute"]["vncserver_listen"] = "0.0.0.0"
 
 # use syslog by default
 default["openstack"]["compute"]["syslog"]["use"] = true
+
+# event notification
+default["openstack"]["compute"]["notifiers"] = ["log_notifier", "rpc_notifier"]
 
 # process monitoring
 default["openstack"]["compute"]["api_processes"] = [
