@@ -210,8 +210,11 @@ osapi_compute_extension=<%= p %>
 instance_usage_audit=True
 instance_usage_audit_period=hour
 notify_on_state_change=vm_and_task_state
-notification_driver=nova.openstack.common.notifier.rpc_notifier
-notification_driver=ceilometer.compute.nova_notifier
+<% if node["openstack"]["compute"]["notifiers"] and not node["openstack"]["compute"]["notifiers"].empty? %>
+<% node["openstack"]["compute"]["notifiers"].each do |notifier| %>
+notification_driver=nova.openstack.common.notifier.<%= notifier %>
+<% end %>
+<% end %>
 
 [conductor]
 
