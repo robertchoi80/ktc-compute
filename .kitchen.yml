@@ -19,15 +19,14 @@ suites:
 - name: controller
   run_list:
     - recipe[ktc-testing]
-    - recipe[ktc-etcd]
+    - recipe[etcd::compile_time]
+    - recipe[ktc-monitor::client]
     - recipe[ktc-database]
     - recipe[ktc-messaging]
     - recipe[ktc-memcached]
     - recipe[ktc-identity]
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
-    - recipe[sensu::default]
-    - recipe[collectd::client]
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
   attributes:

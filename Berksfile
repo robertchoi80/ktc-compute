@@ -8,7 +8,7 @@ metadata
 group :integration do
   cookbook 'ktc-block-storage'
   cookbook 'ktc-database'
-  cookbook 'ktc-etcd'
+  cookbook 'etcd'
   cookbook 'ktc-identity'
   cookbook 'ktc-image'
   cookbook 'ktc-memcached'
