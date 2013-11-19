@@ -84,5 +84,5 @@ default["openstack"]["compute"]["api_processes"] = [
 
 default["openstack"]["compute"]["compute_processes"] = [
   { "name" => "nova-compute", "shortname" => "nova-compute" },
-  { "name" => "libvirt", "shortname" => "libvirt" }
+  { "name" => "libvirtd", "shortname" => "libvirtd" }
 ]
