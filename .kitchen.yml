@@ -72,17 +72,16 @@ suites:
 - name: compute
   run_list:
     - recipe[ktc-testing]
-    - recipe[ktc-etcd]
+    - recipe[etcd::compile_time]
+    - recipe[ktc-monitor::client]
     - recipe[ktc-database]
     - recipe[ktc-messaging]
     - recipe[ktc-memcached]
     - recipe[ktc-identity]
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
-    - recipe[sensu::default]
-    - recipe[collectd::client]
     - recipe[ktc-network]
-    - recipe[ktc-compute::compute-api]
+    - recipe[ktc-compute::compute]
   attributes:
     etcd:
       args: '-c 127.0.0.1:4001 -s 127.0.0.1:7001 -f'
@@ -96,6 +95,7 @@ suites:
       server_debian_password: 'debian'
       server_repl_password: 'repl'
     openstack:
+      availability_zone: vagrant.dev
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
