@@ -42,6 +42,7 @@ suites:
       server_debian_password: 'debian'
       server_repl_password: 'repl'
     openstack:
+      availability_zone: vagrant.dev
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
@@ -51,18 +52,7 @@ suites:
           port: '8775'
       network:
         ng_l3:
-          setup_entities: true
-          physical_network: 'private-net-01'
-          private_subnet: 'private-subnet-01'
-          private_cidr: '10.18.18.0/24'
-          private_nameservers:
-            - '8.8.8.8'
-          heartbeat_network: 'heartbeat'
-          heartbeat_subnet: 'heartbeat'
-          heartbeat_cidr: '10.10.10.0/24'
-          heartbeat_nameservers:
-            - '8.8.8.8'
-
+          setup_entities: false
     authorization:
       sudo:
         users:
@@ -81,6 +71,7 @@ suites:
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
     - recipe[ktc-network]
+    - recipe[ktc-compute::compute-api]
     - recipe[ktc-compute::compute]
   attributes:
     etcd:
@@ -98,13 +89,14 @@ suites:
       availability_zone: vagrant.dev
       developer_mode: true
       compute:
+        driver: 'fake.FakeDriver'
+      endpoints:
         compute-metadata-api:
           host: 'xxx.xxx.xxx.xxx'
           port: '8775'
-        driver: 'fake.FakeDriver'
       network:
         ng_l3:
-          private_cidr: '172.16.0.0/22'
+          setup_entities: false
     authorization:
       sudo:
         users:
