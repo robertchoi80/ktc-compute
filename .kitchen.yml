@@ -98,6 +98,9 @@ suites:
       availability_zone: vagrant.dev
       developer_mode: true
       compute:
+        compute-metadata-api:
+          host: 'xxx.xxx.xxx.xxx'
+          port: '8775'
         driver: 'fake.FakeDriver'
       network:
         ng_l3:
