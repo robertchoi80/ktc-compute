@@ -95,6 +95,8 @@ end
 vb_iface = KTC::Network.if_lookup "management"
 node.set["openstack"]["compute"]["libvirt"]["bind_interface"] = vb_iface
 
+include_recipe "ktc-compute::_config_az"
+
 # process monitoring and sensu-check config
 processes = node['openstack']['compute']['compute_processes']
 
