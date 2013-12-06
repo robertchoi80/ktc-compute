@@ -64,7 +64,7 @@ node.default["openstack"]["compute"]["xvpvnc_proxy"]["bind_interface"] = iface
 node.default["openstack"]["compute"]["novnc_proxy"]["bind_interface"] = iface
 
 include_recipe "openstack-common"
-include_recipe "openstack-common::logging"
+include_recipe "ktc-logging::logging"
 include_recipe "openstack-object-storage::memcached"
 include_recipe "ktc-compute::nova-common"
 
