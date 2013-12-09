@@ -46,6 +46,8 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
+        flavors:
+          action: true
       endpoints:
         compute-metadata-api:
           host: 'xxx.xxx.xxx.xxx'

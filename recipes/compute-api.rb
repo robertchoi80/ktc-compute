@@ -116,7 +116,7 @@ service_list.each do |service|
 end
 
 include_recipe "openstack-compute::identity_registration"
-
+include_recipe "ktc-compute::flavors"
 
 # process monitoring and sensu-check config
 processes = node['openstack']['compute']['api_processes']
