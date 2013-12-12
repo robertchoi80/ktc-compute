@@ -42,19 +42,14 @@ suites:
       server_debian_password: 'debian'
       server_repl_password: 'repl'
     openstack:
-      availability_zone: vagrant.dev
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
         flavors:
           action: true
-      endpoints:
-        compute-metadata-api:
-          host: 'xxx.xxx.xxx.xxx'
-          port: '8775'
       network:
         ng_l3:
-          setup_entities: false
+          kitchen: true
     authorization:
       sudo:
         users:
@@ -92,13 +87,9 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
-      endpoints:
-        compute-metadata-api:
-          host: 'xxx.xxx.xxx.xxx'
-          port: '8775'
       network:
         ng_l3:
-          setup_entities: false
+          kitchen: true
     authorization:
       sudo:
         users:
