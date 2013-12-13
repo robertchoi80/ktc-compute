@@ -86,3 +86,13 @@ default["openstack"]["compute"]["compute_processes"] = [
   { "name" => "nova-compute", "shortname" => "nova-compute" },
   { "name" => "libvirtd", "shortname" => "libvirtd" }
 ]
+
+default["openstack"]["compute"]["scheduler"]["default_filters"] = [
+  "AvailabilityZoneFilter",
+  "RamFilter",
+  "ComputeFilter",
+  "CoreFilter",
+  "SameHostFilter",
+  "DifferentHostFilter",
+  "QuantumAgentFilter"
+]
