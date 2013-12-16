@@ -112,6 +112,7 @@ require 'chef/rewind'
 service_list.each do |service|
   rewind :service => "nova-#{service}" do
     provider Chef::Provider::Service::Upstart
+    subscribes :restart, "git[#{Chef::Config[:file_cache_path]}/nova]"
   end
 end
 
