@@ -3,17 +3,11 @@ driver_plugin: vagrant
 provisioner: chef_zero
 driver_config:
   customize:
-    memory: 512
+    memory: 1024
 
 platforms:
-- name: centos-6.4_chef-11.4.4
-  driver_config:
-    box: opscode-centos-6.4_chef-11.4.4
-    box_url:  https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
-- name: ubuntu-12.04_chef-11.4.4
-  driver_config:
-    box: opscode-ubuntu-12.04_chef-11.4.4
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.4.box
+  - name: centos-6.4
+  - name: ubuntu-12.04
 
 suites:
 - name: controller
@@ -87,9 +81,14 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
+      endpoints:
+        compute-metadata-api:
+          host: '169.254.169.254'
+          port: '8775'
       network:
         ng_l3:
-          kitchen: true
+          setup_entities: false
+          private_network: 'private-net-01'
     authorization:
       sudo:
         users:

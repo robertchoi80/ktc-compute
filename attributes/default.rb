@@ -38,7 +38,7 @@ default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
 default["openstack"]["compute"]["platform"]["pip_requires_packages"] = %w{
   libxml2-dev libxslt-dev python-sqlalchemy python-amqplib python-anyjson
-  python-boto python-eventlet python-kombu python-cheetah python-libxml2 python-libxslt1
+  python-boto python-eventlet python-cheetah python-libxml2 python-libxslt1
   python-routes python-webob python-greenlet python-paste python-pastedeploy
   python-migrate python-netaddr python-suds python-paramiko python-pyasn1
   python-babel python-iso8601 python-httplib2 python-setuptools-git
