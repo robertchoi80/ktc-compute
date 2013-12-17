@@ -1,7 +1,10 @@
 ---
-driver_plugin: vagrant
-provisioner: chef_zero
-driver_config:
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+driver:
+  name: vagrant
   customize:
     memory: 1024
 

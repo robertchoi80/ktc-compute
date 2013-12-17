@@ -1,4 +1,6 @@
 .vagrant
+.berks/cookbooks
+.berks/tmp
 *~
 *#
 .#*
