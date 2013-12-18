@@ -6,7 +6,7 @@
 include_recipe "ktc-utils"
 
 KTC::Attributes.set
-
+include_recipe "ktc-logging::logging"
 include_recipe "ktc-network::compute"
 include_recipe "ktc-compute::nova-common"
 
