@@ -59,7 +59,7 @@ default["quantum"]["plugin"] = ""
 
 default["memcached"]["port"] = "11211"
 
-default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-identity"
+default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-compute\\:\\:compute"
 
 
 # vncserver listen changed
