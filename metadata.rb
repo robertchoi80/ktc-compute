@@ -4,7 +4,7 @@ maintainer_email  "wil.reichert@kt.com"
 license           "All rights reserved"
 description       "Wrapper cookbook of rcb's nova cookbook"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.1.20'
+version '2.1.21'
 recipe		        "compute", "Include recipes required for compute node"
 recipe		        "compute-api", "Include recipes required for control node"
 
