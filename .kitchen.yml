@@ -44,6 +44,7 @@ suites:
         driver: 'fake.FakeDriver'
         flavors:
           action: true
+        identity_service_chef_role: 'ktc-identity'
       network:
         ng_l3:
           kitchen: true
@@ -84,6 +85,7 @@ suites:
       developer_mode: true
       compute:
         driver: 'fake.FakeDriver'
+        identity_service_chef_role: 'ktc-identity'
       endpoints:
         compute-metadata-api:
           host: '169.254.169.254'

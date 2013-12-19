@@ -69,7 +69,7 @@ quantum_metadata_proxy_shared_secret=<%= @quantum_metadata_proxy_shared_secret %
 default_floating_pool=<%= node["openstack"]["compute"]["network"]["quantum"]["public_network_name"] %>
 dns_server=<%= node["openstack"]["compute"]["network"]["quantum"]["dns_server"] %>
 <% if node["openstack"]["network"]["ng_l3"] -%>
-pre_defined_network=<%= node["openstack"]["network"]["ng_l3"]["private_network"] %>
+pre_defined_network=<%= node["openstack"]["network"]["ng_l3"]["private_network"] || node["openstack"]["availability_zone"] %>
 <% end -%>
 
 <% when "nova" -%>
