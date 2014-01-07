@@ -1,5 +1,5 @@
 # Cookbook Name:: ktc-compute
-# Recipe:: source_install
+# Recipe:: package_install
 #
 
 include_recipe "sudo"
