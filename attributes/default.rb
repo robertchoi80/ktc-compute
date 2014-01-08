@@ -36,7 +36,7 @@ default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["pip_requires_packages"] = %w{
+default["openstack"]["compute"]["platform"]["requires_packages"] = %w{
   libxml2-dev libxslt-dev python-sqlalchemy python-amqplib python-anyjson
   python-boto python-eventlet python-cheetah python-libxml2 python-libxslt1
   python-routes python-webob python-greenlet python-paste python-pastedeploy
