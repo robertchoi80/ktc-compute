@@ -43,7 +43,7 @@ default["openstack"]["compute"]["platform"]["requires_packages"] = %w{
   python-migrate python-netaddr python-suds python-paramiko python-pyasn1
   python-babel python-iso8601 python-httplib2 python-setuptools-git
   python-cinderclient python-glanceclient python-keystoneclient websockify
-  python-numpy python-oslo.config
+  python-numpy python-oslo.config python-lxml
 }
 default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
