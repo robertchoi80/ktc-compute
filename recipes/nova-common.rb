@@ -1,8 +1,10 @@
 chef_gem "chef-rewind"
 require 'chef/rewind'
 
+ENV["PYTHON_EGG_CACHE"] = "/tmp"
+
 include_recipe "ktc-package"
-include_recipe "ktc-compute::package_install"
+include_recipe "ktc-compute::package_setup"
 include_recipe "openstack-compute::nova-common"
 
 rewind :template => "/etc/nova/nova.conf" do
