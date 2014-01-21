@@ -36,7 +36,6 @@ default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
 default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["requires_packages"] = []
 default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
 default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "5.0"

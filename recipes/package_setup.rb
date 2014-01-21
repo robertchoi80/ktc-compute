@@ -27,9 +27,12 @@ sudo "nova_sudoers" do
 end
 
 %w|
-  /var/log/nova
+  /var/cache/nova
+  /var/cache/nova/api
   /var/lib/nova/.python-eggs
   /var/lib/nova/instances
+  /var/log/nova
+  /var/run/nova
 |.each do |p|
   directory "#{p}" do
     owner node["openstack"]["compute"]["user"]
@@ -68,4 +71,8 @@ end
   link "/usr/bin/#{p}" do
     to "/opt/openstack/nova/bin/#{p}"
   end
+end
+
+link "/usr/bin/nova" do
+  to "/opt/openstack/novaclient/bin/nova"
 end
