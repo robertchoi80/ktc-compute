@@ -38,7 +38,7 @@ default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
 default["openstack"]["compute"]["platform"]["common_packages"] = []
 default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
 default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
-default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "5.0"
+default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "2.5"
 default["openstack"]["compute"]["config"]["ram_allocation_ratio"] = "0.95"
 default["openstack"]["compute"]["config"]["max_instances_per_host"] = "80"
 
