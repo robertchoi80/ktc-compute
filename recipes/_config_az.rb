@@ -10,10 +10,10 @@ unless az.nil?
     cwd "/root"
     code <<-EOH
       source /root/openrc
-      /usr/local/bin/nova aggregate-list | grep #{az}
-      [[ $? -ne 0 ]] && /usr/local/bin/nova aggregate-create #{az} #{az}
-      /usr/local/bin/nova aggregate-details #{az} | grep #{node['fqdn']}
-      [[ $? -ne 0 ]] && /usr/local/bin/nova aggregate-add-host #{az} #{node['fqdn']}
+      /usr/x/bin/nova aggregate-list | grep #{az}
+      [[ $? -ne 0 ]] && /usr/bin/nova aggregate-create #{az} #{az}
+      /usr/bin/nova aggregate-details #{az} | grep #{node['fqdn']}
+      [[ $? -ne 0 ]] && /usr/bin/nova aggregate-add-host #{az} #{node['fqdn']}
       touch /root/.az_configured
     EOH
     not_if { ::File.exists?("/var/chef/cache/.az_configured") }
