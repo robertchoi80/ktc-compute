@@ -23,7 +23,7 @@ sudo "nova_sudoers" do
   host     "ALL"
   runas    "root"
   nopasswd true
-  commands ["/usr/local/bin/nova-rootwrap"]
+  commands ["/usr/bin/nova-rootwrap"]
 end
 
 %w|
