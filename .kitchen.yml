@@ -41,7 +41,6 @@ suites:
     openstack:
       developer_mode: true
       compute:
-        driver: 'fake.FakeDriver'
         flavors:
           action: true
         identity_service_chef_role: 'ktc-identity'
@@ -84,7 +83,6 @@ suites:
       availability_zone: vagrant.dev
       developer_mode: true
       compute:
-        driver: 'fake.FakeDriver'
         identity_service_chef_role: 'ktc-identity'
       endpoints:
         compute-metadata-api:
