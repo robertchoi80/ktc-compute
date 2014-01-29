@@ -42,3 +42,9 @@
   vergt() { [ "$1" = "$2" ] && return 1 || vergte $1 $2; }
   vergt $kombu_ver 3
 }
+
+@test "nova autocompletion is in" 
+{
+  ls -al /etc/bash_completion.d/nova
+}
+

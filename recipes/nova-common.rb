@@ -18,3 +18,10 @@ cookbook_file "/etc/nova/policy.json" do
   mode 00640
   action :create
 end
+
+
+cookbook_file "/etc/bash_completion.d/nova" do
+  source "etc/bash_completion.d/nova"
+  mode 00640
+  action :create
+end
