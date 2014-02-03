@@ -203,5 +203,15 @@ default["openstack"]["compute"]["flavors"]["list"] = [
       "disk" => 0,
       "id" => "17"
     }
+  },
+  {
+    "action" => :create,
+    "options" => {
+      "name" => "16c62g",
+      "ram" => 63488,
+      "vcpus" => 16,
+      "disk" => 0,
+      "id" => "18"
+    }
   }
 ]
