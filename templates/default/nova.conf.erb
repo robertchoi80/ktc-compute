@@ -158,11 +158,11 @@ quota_security_groups=<%= node["openstack"]["compute"]["config"]["quota_security
 # number of security rules per security group (default: 20)
 quota_security_group_rules=<%= node["openstack"]["compute"]["config"]["quota_security_group_rules"] %>
 # from UCLOUDNG-1125
-quota_ram=3200000
-quota_instances=100
-quota_cores=400
-quota_gigabytes=250000 
-quota_volumes=500
+quota_ram=<%= node["openstack"]["compute"]["config"]["quota_ram"] %>
+quota_instances=<%= node["openstack"]["compute"]["config"]["quota_instances"] %>
+quota_cores=<%= node["openstack"]["compute"]["config"]["quota_cores"] %>
+quota_gigabytes=<%= node["openstack"]["compute"]["config"]["quota_gigabytes"] %>
+quota_volumes=<%= node["openstack"]["compute"]["config"]["quota_volumes"] %>
 
 <%- if /FilterScheduler/.match(node["openstack"]["compute"]["scheduler"]["scheduler_driver"]) or
        /MultiScheduler/.match(node["openstack"]["compute"]["scheduler"]["scheduler_driver"]) %>

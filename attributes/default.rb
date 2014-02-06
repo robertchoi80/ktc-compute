@@ -41,6 +41,11 @@ default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropbo
 default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "2.5"
 default["openstack"]["compute"]["config"]["ram_allocation_ratio"] = "0.95"
 default["openstack"]["compute"]["config"]["max_instances_per_host"] = "80"
+default["openstack"]["compute"]["config"]["quota_ram"] = "3200000"
+default["openstack"]["compute"]["config"]["quota_instances"] = "100"
+default["openstack"]["compute"]["config"]["quota_cores"] = "400"
+default["openstack"]["compute"]["config"]["quota_gigabytes"] = "250000"
+default["openstack"]["compute"]["config"]["quota_volumes"] = "500"
 
 
 # referenced in recipes/compute.rb
