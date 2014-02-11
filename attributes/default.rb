@@ -46,7 +46,7 @@ default["openstack"]["compute"]["config"]["quota_instances"] = "100"
 default["openstack"]["compute"]["config"]["quota_cores"] = "400"
 default["openstack"]["compute"]["config"]["quota_gigabytes"] = "250000"
 default["openstack"]["compute"]["config"]["quota_volumes"] = "500"
-
+default["openstack"]["compute"]["config"]["nfs_mount_options"] = "timeo=100,retrans=1"
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""

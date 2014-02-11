@@ -205,7 +205,7 @@ keystone_ec2_url=<%= @identity_endpoint.scheme %>://<%= @identity_endpoint.host 
 # iscsi target user-land tool to use
 iscsi_helper=<%= @iscsi_helper %>
 volume_api_class=<%= node["openstack"]["compute"]["config"]["volume_api_class"] %>
-
+nfs_mount_options=<%= node["openstack"]["compute"]["config"]["nfs_mount_options"] %>
 ##### THIRD PARTY ADDITIONS #####
 <% if node["openstack"]["compute"]["plugins"] %>
 <% node["openstack"]["compute"]["plugins"].each do |p| %>
