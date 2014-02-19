@@ -47,6 +47,13 @@ default["openstack"]["compute"]["config"]["quota_cores"] = "400"
 default["openstack"]["compute"]["config"]["quota_gigabytes"] = "250000"
 default["openstack"]["compute"]["config"]["quota_volumes"] = "500"
 
+default["openstack"]["compute"]["ratelimit"]["settings"] = {
+  "generic-post-limit" => { "verb" => "POST", "uri" => "*", "regex" => ".*", "limit" => "100", "interval" => "MINUTE" },
+  "create-servers-limit" => { "verb" => "POST", "uri" => "*/servers", "regex" => "^/servers", "limit" => "500", "interval" => "DAY" },
+  "generic-put-limit" => { "verb" => "PUT", "uri" => "*", "regex" => ".*", "limit" => "100", "interval" => "MINUTE" },
+  "changes-since-limit" => { "verb" => "GET", "uri" => "*changes-since*", "regex" => ".*changes-since.*", "limit" => "30", "interval" => "MINUTE" },
+  "generic-delete-limit" => { "verb" => "DELETE", "uri" => "*", "regex" => ".*", "limit" => "1000", "interval" => "MINUTE" }
+}
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
