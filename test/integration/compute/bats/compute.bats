@@ -8,4 +8,7 @@
 }
 
                                                                                 
+@test "nfs option is in the conf" {
+  cat /etc/nova/nova.conf | grep nfs_mount 
+}
 

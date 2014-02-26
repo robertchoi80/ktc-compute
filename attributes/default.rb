@@ -46,7 +46,6 @@ default["openstack"]["compute"]["config"]["quota_instances"] = "100"
 default["openstack"]["compute"]["config"]["quota_cores"] = "400"
 default["openstack"]["compute"]["config"]["quota_gigabytes"] = "250000"
 default["openstack"]["compute"]["config"]["quota_volumes"] = "500"
-
 default["openstack"]["compute"]["ratelimit"]["settings"] = {
   "generic-post-limit" => { "verb" => "POST", "uri" => "*", "regex" => ".*", "limit" => "100", "interval" => "MINUTE" },
   "create-servers-limit" => { "verb" => "POST", "uri" => "*/servers", "regex" => "^/servers", "limit" => "500", "interval" => "DAY" },
@@ -54,6 +53,7 @@ default["openstack"]["compute"]["ratelimit"]["settings"] = {
   "changes-since-limit" => { "verb" => "GET", "uri" => "*changes-since*", "regex" => ".*changes-since.*", "limit" => "30", "interval" => "MINUTE" },
   "generic-delete-limit" => { "verb" => "DELETE", "uri" => "*", "regex" => ".*", "limit" => "1000", "interval" => "MINUTE" }
 }
+default["openstack"]["compute"]["config"]["nfs_mount_options"] = "timeo=100,retrans=1"
 
 # referenced in recipes/compute.rb
 default["quantum"]["plugin"] = ""
