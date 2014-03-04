@@ -19,7 +19,8 @@ module Fog
         def create_flavor(attributes)
           # Get last flavor id
           flavor_ids = []
-          flavors = list_flavors
+          flavors = list_flavors_detail.body['flavors'] +
+            list_flavors_detail(is_public: false).body['flavors']
           flavors.each do |flavor|
             flavor_ids << flavor['id'].to_i
           end
@@ -35,13 +36,6 @@ module Fog
             method: 'POST',
             path: 'flavors'
           )
-        end
-
-        private
-
-        def list_flavors
-          list_flavors_detail.body['flavors'] +
-            list_flavors_detail(is_public: false).body['flavors']
         end
       end
     end
