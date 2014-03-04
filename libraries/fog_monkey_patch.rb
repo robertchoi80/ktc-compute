@@ -1,7 +1,7 @@
 begin
   require 'fog'
 rescue LoadError
-  Chef::Log.info "fog gem not found. Attempting to install "
+  Chef::Log.info 'fog gem not found. Attempting to install '
   # we do this cause there are some pacakges and system things that
   # may need to get installed as well as this gem
   Gem::DependencyInstaller.new.install('fog')
@@ -13,11 +13,14 @@ require 'fog/openstack/requests/compute/create_flavor'
 module Fog
   module Compute
     class OpenStack
+      # Real
       class Real
+        # rubocop:disable MethodLength
         def create_flavor(attributes)
           # Get last flavor id
-          flavor_ids = Array.new
-          flavors = get_flavors
+          flavor_ids = []
+          flavors = list_flavors_detail.body['flavors'] +
+            list_flavors_detail(is_public: false).body['flavors']
           flavors.each do |flavor|
             flavor_ids << flavor['id'].to_i
           end
@@ -28,17 +31,11 @@ module Fog
           }
 
           request(
-            :body => MultiJson.encode(data),
-            :expects => 200,
-            :method => 'POST',
-            :path => 'flavors'
+            body: MultiJson.encode(data),
+            expects: 200,
+            method: 'POST',
+            path: 'flavors'
           )
-        end
-
-        private
-        def get_flavors
-          flavors = list_flavors_detail.body['flavors'] +
-            list_flavors_detail(:is_public => false).body['flavors']
         end
       end
     end

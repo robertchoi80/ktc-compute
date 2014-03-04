@@ -15,85 +15,129 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_attribute "openstack-compute::default"
+include_attribute 'openstack-compute::default'
 
-default["openstack"]["compute"]["network"]["service_type"] = "quantum"
-default["openstack"]["compute"]["network"]["plugins"] = ["linuxbridge", "dhcp_agent", "l3_agent", "metadata_agent"]
-default["openstack"]["compute"]["network"]["quantum"]["libvirt_vif_driver"] = "nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver"
-default["openstack"]["compute"]["network"]["quantum"]["linuxnet_interface_driver"] = "nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver"
-default["openstack"]["compute"]["network"]["quantum"]["firewall_driver"] = "nova.virt.firewall.NoopFirewallDriver"
-default["openstack"]["compute"]["network"]["quantum"]["security_group_api"] = "quantum"
-default["openstack"]["compute"]["platform"]["api_ec2_packages"] = []
-default["openstack"]["compute"]["platform"]["api_os_compute_packages"] = []
-default["openstack"]["compute"]["platform"]["memcache_python_packages"] = []
-default["openstack"]["compute"]["platform"]["neutron_python_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_api_metadata_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_compute_packages"] = ["openstack"]
-default["openstack"]["compute"]["platform"]["compute_network_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_scheduler_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_conductor_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_vncproxy_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_vncproxy_consoleauth_packages"] = []
-default["openstack"]["compute"]["platform"]["compute_cert_packages"] = []
-default["openstack"]["compute"]["platform"]["common_packages"] = []
-default["openstack"]["compute"]["platform"]["libvirt_packages"] = ["libvirt-bin", "python-libvirt", "genisoimage", "open-iscsi"]
-default["openstack"]["compute"]["platform"]["novnc"]["url"] = "https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz"
-default["openstack"]["compute"]["config"]["cpu_allocation_ratio"] = "2.5"
-default["openstack"]["compute"]["config"]["ram_allocation_ratio"] = "0.95"
-default["openstack"]["compute"]["config"]["max_instances_per_host"] = "80"
-default["openstack"]["compute"]["config"]["quota_ram"] = "3200000"
-default["openstack"]["compute"]["config"]["quota_instances"] = "100"
-default["openstack"]["compute"]["config"]["quota_cores"] = "400"
-default["openstack"]["compute"]["config"]["quota_gigabytes"] = "250000"
-default["openstack"]["compute"]["config"]["quota_volumes"] = "500"
-default["openstack"]["compute"]["ratelimit"]["settings"] = {
-  "generic-post-limit" => { "verb" => "POST", "uri" => "*", "regex" => ".*", "limit" => "100", "interval" => "MINUTE" },
-  "create-servers-limit" => { "verb" => "POST", "uri" => "*/servers", "regex" => "^/servers", "limit" => "500", "interval" => "DAY" },
-  "generic-put-limit" => { "verb" => "PUT", "uri" => "*", "regex" => ".*", "limit" => "100", "interval" => "MINUTE" },
-  "changes-since-limit" => { "verb" => "GET", "uri" => "*changes-since*", "regex" => ".*changes-since.*", "limit" => "30", "interval" => "MINUTE" },
-  "generic-delete-limit" => { "verb" => "DELETE", "uri" => "*", "regex" => ".*", "limit" => "1000", "interval" => "MINUTE" }
+default['openstack']['compute']['network']['service_type'] = 'quantum'
+default['openstack']['compute']['network']['plugins'] = %w/
+  linuxbridge
+  dhcp_agent
+  l3_agent
+  metadata_agent
+/
+default['openstack']['compute']['network']['quantum']['libvirt_vif_driver'] =
+  'nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver'
+default['openstack']['compute']['network']['quantum']['linuxnet_interface_driver'] =
+  'nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver'
+default['openstack']['compute']['network']['quantum']['firewall_driver'] =
+  'nova.virt.firewall.NoopFirewallDriver'
+
+default['openstack']['compute']['network']['quantum']['security_group_api'] = 'quantum'
+default['openstack']['compute']['platform']['api_ec2_packages'] = []
+default['openstack']['compute']['platform']['api_os_compute_packages'] = []
+default['openstack']['compute']['platform']['memcache_python_packages'] = []
+default['openstack']['compute']['platform']['neutron_python_packages'] = []
+default['openstack']['compute']['platform']['compute_api_metadata_packages'] = []
+default['openstack']['compute']['platform']['compute_compute_packages'] = ['openstack']
+default['openstack']['compute']['platform']['compute_network_packages'] = []
+default['openstack']['compute']['platform']['compute_scheduler_packages'] = []
+default['openstack']['compute']['platform']['compute_conductor_packages'] = []
+default['openstack']['compute']['platform']['compute_vncproxy_packages'] = []
+default['openstack']['compute']['platform']['compute_vncproxy_consoleauth_packages'] = []
+default['openstack']['compute']['platform']['compute_cert_packages'] = []
+default['openstack']['compute']['platform']['common_packages'] = []
+default['openstack']['compute']['platform']['libvirt_packages'] = %w/
+  libvirt-bin
+  python-libvirt
+  genisoimage
+  open-iscsi
+/
+default['openstack']['compute']['platform']['novnc']['url'] =
+  'https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz'
+default['openstack']['compute']['config']['cpu_allocation_ratio'] = '2.5'
+default['openstack']['compute']['config']['ram_allocation_ratio'] = '0.95'
+default['openstack']['compute']['config']['max_instances_per_host'] = '80'
+default['openstack']['compute']['config']['quota_ram'] = '3200000'
+default['openstack']['compute']['config']['quota_instances'] = '100'
+default['openstack']['compute']['config']['quota_cores'] = '400'
+default['openstack']['compute']['config']['quota_gigabytes'] = '250000'
+default['openstack']['compute']['config']['quota_volumes'] = '500'
+default['openstack']['compute']['ratelimit']['settings'] = {
+  'generic-post-limit' => {
+    'verb' => 'POST',
+    'uri' => '*',
+    'regex' => '.*',
+    'limit' => '100',
+    'interval' => 'MINUTE'
+  },
+  'create-servers-limit' => {
+    'verb' => 'POST',
+    'uri' => '*/servers',
+    'regex' => '^/servers',
+    'limit' => '500',
+    'interval' => 'DAY'
+  },
+  'generic-put-limit' => {
+    'verb' => 'PUT',
+    'uri' => '*',
+    'regex' => '.*',
+    'limit' => '100',
+    'interval' => 'MINUTE'
+  },
+  'changes-since-limit' => {
+    'verb' => 'GET',
+    'uri' => '*changes-since*',
+    'regex' => '.*changes-since.*',
+    'limit' => '30',
+    'interval' => 'MINUTE'
+  },
+  'generic-delete-limit' => {
+    'verb' => 'DELETE',
+    'uri' => '*',
+    'regex' => '.*',
+    'limit' => '1000',
+    'interval' => 'MINUTE'
+  }
 }
-default["openstack"]["compute"]["config"]["nfs_mount_options"] = "timeo=100,retrans=1"
+default['openstack']['compute']['config']['nfs_mount_options'] = 'timeo=100,retrans=1'
 
 # referenced in recipes/compute.rb
-default["quantum"]["plugin"] = ""
+default['quantum']['plugin'] = ''
 
-default["memcached"]["port"] = "11211"
+default['memcached']['port'] = '11211'
 
-default["openstack"]["compute"]["identity_service_chef_role"] = "ktc-controller"
-
+default['openstack']['compute']['identity_service_chef_role'] = 'ktc-controller'
 
 # vncserver listen changed
-default["openstack"]["compute"]["vncserver_listen"] = "0.0.0.0"
+default['openstack']['compute']['vncserver_listen'] = '0.0.0.0'
 
 # use syslog by default
-default["openstack"]["compute"]["syslog"]["use"] = true
+default['openstack']['compute']['syslog']['use'] = true
 
 # event notification
-default["openstack"]["compute"]["notifiers"] = ["log_notifier", "rpc_notifier"]
+default['openstack']['compute']['notifiers'] = %w/log_notifier rpc_notifier/
 
 # process monitoring
-default["openstack"]["compute"]["api_processes"] = [
-  { "name" => "nova-scheduler", "shortname" => "nova-scheduler" },
-  { "name" => "nova-conductor", "shortname" => "nova-conductor" },
-  { "name" => "nova-api-ec2", "shortname" => "nova-api-ec2" },
-  { "name" => "nova-api-metadata", "shortname" => "nova-api-metada" },
-  { "name" => "nova-api-os-compute", "shortname" => "nova-api-os-com" },
-  { "name" => "nova-novncproxy", "shortname" => "nova-novncproxy" },
-  { "name" => "nova-consoleauth", "shortname" => "nova-consoleaut" }
+default['openstack']['compute']['api_processes'] = [
+  { 'name' => 'nova-scheduler', 'shortname' => 'nova-scheduler' },
+  { 'name' => 'nova-conductor', 'shortname' => 'nova-conductor' },
+  { 'name' => 'nova-api-ec2', 'shortname' => 'nova-api-ec2' },
+  { 'name' => 'nova-api-metadata', 'shortname' => 'nova-api-metada' },
+  { 'name' => 'nova-api-os-compute', 'shortname' => 'nova-api-os-com' },
+  { 'name' => 'nova-novncproxy', 'shortname' => 'nova-novncproxy' },
+  { 'name' => 'nova-consoleauth', 'shortname' => 'nova-consoleaut' }
 ]
 
-default["openstack"]["compute"]["compute_processes"] = [
-  { "name" => "nova-compute", "shortname" => "nova-compute" },
-  { "name" => "libvirtd", "shortname" => "libvirtd" }
+default['openstack']['compute']['compute_processes'] = [
+  { 'name' => 'nova-compute', 'shortname' => 'nova-compute' },
+  { 'name' => 'libvirtd', 'shortname' => 'libvirtd' }
 ]
 
-default["openstack"]["compute"]["scheduler"]["default_filters"] = [
-  "AvailabilityZoneFilter",
-  "RamFilter",
-  "ComputeFilter",
-  "CoreFilter",
-  "SameHostFilter",
-  "DifferentHostFilter",
-  "QuantumAgentFilter"
-]
+default['openstack']['compute']['scheduler']['default_filters'] = %w/
+  AvailabilityZoneFilter
+  RamFilter
+  ComputeFilter
+  CoreFilter
+  SameHostFilter
+  DifferentHostFilter
+  QuantumAgentFilter
+/

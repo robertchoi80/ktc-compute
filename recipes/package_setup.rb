@@ -3,27 +3,27 @@
 # Recipe:: package_setup
 #
 
-include_recipe "sudo"
-include_recipe "ktc-package"
+include_recipe 'sudo'
+include_recipe 'ktc-package'
 
-group node["openstack"]["compute"]["group"] do
+group node['openstack']['compute']['group'] do
   system true
 end
 
-user node["openstack"]["compute"]["user"] do
-  home "/var/lib/nova"
-  gid node["openstack"]["compute"]["group"]
-  shell "/bin/sh"
+user node['openstack']['compute']['user'] do
+  home '/var/lib/nova'
+  gid node['openstack']['compute']['group']
+  shell '/bin/sh'
   system  true
-  supports :manage_home => true
+  supports manage_home: true
 end
 
-sudo "nova_sudoers" do
-  user     node["openstack"]["compute"]["user"]
-  host     "ALL"
-  runas    "root"
+sudo 'nova_sudoers' do
+  user     node['openstack']['compute']['user']
+  host     'ALL'
+  runas    'root'
   nopasswd true
-  commands ["/usr/bin/nova-rootwrap"]
+  commands ['/usr/bin/nova-rootwrap']
 end
 
 %w|
@@ -34,9 +34,9 @@ end
   /var/log/nova
   /var/run/nova
 |.each do |p|
-  directory "#{p}" do
-    owner node["openstack"]["compute"]["user"]
-    group node["openstack"]["compute"]["group"]
+  directory p do
+    owner node['openstack']['compute']['user']
+    group node['openstack']['compute']['group']
     mode 00755
     action :create
   end
@@ -73,6 +73,6 @@ end
   end
 end
 
-link "/usr/bin/nova" do
-  to "/opt/openstack/novaclient/bin/nova"
+link '/usr/bin/nova' do
+  to '/opt/openstack/novaclient/bin/nova'
 end
