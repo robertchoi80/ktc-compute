@@ -105,7 +105,9 @@ glance_api_servers=<%= @glance_api_ipaddress %>:<%= @glance_api_port %>
 ##### COMPUTE #####
 compute_driver=<%= node["openstack"]["compute"]["driver"] %>
 compute_manager=nova.compute.manager.ComputeManager
+<% if node.run_list.include?("recipe[ktc-controller]") -%>
 sql_connection=<%= @sql_connection %>
+<% end -%>
 connection_type=libvirt
 libvirt_type=<%= node["openstack"]["compute"]["libvirt"]["virt_type"] %>
 # Command prefix to use for running commands as root (default: sudo)
