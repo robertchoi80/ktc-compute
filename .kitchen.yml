@@ -27,6 +27,7 @@ suites:
     - recipe[ktc-network]
     - recipe[ktc-compute::compute-api]
   attributes:
+    controller_tlc: ktc-compute::compute-api
     etcd:
       servers:
         - localhost
@@ -67,6 +68,7 @@ suites:
     - recipe[ktc-compute::compute-api]
     - recipe[ktc-compute::compute]
   attributes:
+    controller_tlc: ktc-compute::compute-api
     etcd:
       servers:
         - localhost

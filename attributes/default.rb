@@ -141,3 +141,5 @@ default['openstack']['compute']['scheduler']['default_filters'] = %w/
   DifferentHostFilter
   QuantumAgentFilter
 /
+
+default['controller_tlc'] = 'ktc-controller'
