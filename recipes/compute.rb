@@ -31,7 +31,7 @@ end
 platform_options = node['openstack']['compute']['platform']
 package compute_compute_package do
   options platform_options['package_overrides']
-
+  retries 3
   action :install
 end
 
