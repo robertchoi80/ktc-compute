@@ -18,12 +18,12 @@
 include_attribute 'openstack-compute::default'
 
 default['openstack']['compute']['network']['service_type'] = 'quantum'
-default['openstack']['compute']['network']['plugins'] = %w/
+default['openstack']['compute']['network']['plugins'] = %w(
   linuxbridge
   dhcp_agent
   l3_agent
   metadata_agent
-/
+)
 default['openstack']['compute']['network']['quantum']['libvirt_vif_driver'] =
   'nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver'
 default['openstack']['compute']['network']['quantum']['linuxnet_interface_driver'] =
@@ -45,12 +45,12 @@ default['openstack']['compute']['platform']['compute_vncproxy_packages'] = []
 default['openstack']['compute']['platform']['compute_vncproxy_consoleauth_packages'] = []
 default['openstack']['compute']['platform']['compute_cert_packages'] = []
 default['openstack']['compute']['platform']['common_packages'] = []
-default['openstack']['compute']['platform']['libvirt_packages'] = %w/
+default['openstack']['compute']['platform']['libvirt_packages'] = %w(
   libvirt-bin
   python-libvirt
   genisoimage
   open-iscsi
-/
+)
 default['openstack']['compute']['platform']['novnc']['url'] =
   'https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz'
 default['openstack']['compute']['config']['cpu_allocation_ratio'] = '2.5'
@@ -114,7 +114,7 @@ default['openstack']['compute']['vncserver_listen'] = '0.0.0.0'
 default['openstack']['compute']['syslog']['use'] = true
 
 # event notification
-default['openstack']['compute']['notifiers'] = %w/log_notifier rpc_notifier/
+default['openstack']['compute']['notifiers'] = %w(log_notifier rpc_notifier)
 
 # process monitoring
 default['openstack']['compute']['api_processes'] = [
@@ -132,7 +132,7 @@ default['openstack']['compute']['compute_processes'] = [
   { 'name' => 'libvirtd', 'shortname' => 'libvirtd' }
 ]
 
-default['openstack']['compute']['scheduler']['default_filters'] = %w/
+default['openstack']['compute']['scheduler']['default_filters'] = %w(
   AvailabilityZoneFilter
   RamFilter
   ComputeFilter
@@ -140,6 +140,6 @@ default['openstack']['compute']['scheduler']['default_filters'] = %w/
   SameHostFilter
   DifferentHostFilter
   QuantumAgentFilter
-/
+)
 
 default['controller_tlc'] = 'ktc-controller'

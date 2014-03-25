@@ -3,6 +3,7 @@ return unless node['openstack']['compute']['flavors']['action']
 require 'uri'
 
 # include Openstack libraries
+# rubocop:disable ClassAndModuleChildren
 class ::Chef::Recipe
   include ::Openstack
 end

@@ -32,7 +32,7 @@ module KTC
       macro_list = [:router, :network, :subnet, :port]
       if macro_list.include? macro
         if search_map.key? macro
-          entity = find_existing_entity "#{macro.to_s}s", search_map[macro]
+          entity = find_existing_entity macro.to_s + 's', search_map[macro]
           id = entity['id']
         else
           fail "Must give :#{macro} options in 'search_id' attribute"
