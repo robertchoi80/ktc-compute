@@ -8,7 +8,7 @@ version '2.1.32'
 recipe		        'compute', 'Include recipes required for compute node'
 recipe		        'compute-api', 'Include recipes required for control node'
 
-%w{ centos ubuntu }.each do |os|
+%w(centos ubuntu).each do |os|
   supports os
 end
 

@@ -67,7 +67,7 @@ include_recipe 'openstack-common'
 include_recipe 'ktc-logging::logging'
 include_recipe 'ktc-compute::nova-common'
 
-service_list = %w{
+service_list = %w(
   scheduler
   conductor
   api-ec2
@@ -76,7 +76,7 @@ service_list = %w{
   cert
   consoleauth
   novncproxy
-}
+)
 
 service_list.each do |service|
   cookbook_file "/etc/init/nova-#{service}.conf" do

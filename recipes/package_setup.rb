@@ -26,14 +26,14 @@ sudo 'nova_sudoers' do
   commands ['/usr/bin/nova-rootwrap']
 end
 
-%w|
+%w(
   /var/cache/nova
   /var/cache/nova/api
   /var/lib/nova/.python-eggs
   /var/lib/nova/instances
   /var/log/nova
   /var/run/nova
-|.each do |p|
+).each do |p|
   directory p do
     owner node['openstack']['compute']['user']
     group node['openstack']['compute']['group']
@@ -42,7 +42,7 @@ end
   end
 end
 
-%w/
+%w(
   nova-all
   nova-api
   nova-api-ec2
@@ -67,7 +67,7 @@ end
   nova-scheduler
   nova-spicehtml5proxy
   nova-xvpvncproxy
-/.each do |p|
+).each do |p|
   link "/usr/bin/#{p}" do
     to "/opt/openstack/nova/bin/#{p}"
   end
