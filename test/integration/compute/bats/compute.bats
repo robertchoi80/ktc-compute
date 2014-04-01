@@ -12,3 +12,6 @@
   cat /etc/nova/nova.conf | grep nfs_mount 
 }
 
+@test "seabios version is upgraded to 1.7.3-1ubuntu0.1" {
+  dpkg -s seabios | grep 1.7.3-1ubuntu0.1
+}
