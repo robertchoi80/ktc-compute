@@ -35,6 +35,14 @@ package compute_compute_package do
   action :install
 end
 
+qemu_bios = 'seabios'
+package qemu_bios do
+  options platform_options['package_overrides']
+  retries 3
+  action :install
+  version '1.7.3-1ubuntu0.1'
+end
+
 # Installing nfs client packages because in grizzly, cinder nfs is supported
 # Never had to install iscsi packages because nova-compute package depends it
 # So volume-attach 'just worked' before - alop
