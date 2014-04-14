@@ -111,7 +111,11 @@ default['openstack']['compute']['identity_service_chef_role'] = 'ktc-controller'
 default['openstack']['compute']['vncserver_listen'] = '0.0.0.0'
 
 # use syslog by default
+default['openstack']['compute']['debug'] = true
 default['openstack']['compute']['syslog']['use'] = true
+
+# must be same as node['rsyslog']['nova_facility']
+default['openstack']['compute']['syslog']['facility'] = 'LOG_LOCAL2'
 
 # event notification
 default['openstack']['compute']['notifiers'] = %w(log_notifier rpc_notifier)
