@@ -118,6 +118,7 @@ remove_unused_resized_minimum_age_seconds=<%= node["openstack"]["compute"]["libv
 remove_unused_original_minimum_age_seconds=<%= node["openstack"]["compute"]["libvirt"]["remove_unused_original_minimum_age_seconds"] %>
 # Write a checksum for files in _base to disk (default: false)
 checksum_base_images=<%= node["openstack"]["compute"]["libvirt"]["checksum_base_images"] %>
+allow_resize_to_same_host=True
 
 ##### VNCPROXY #####
 novncproxy_base_url=<%= @novncproxy_base_url %>
