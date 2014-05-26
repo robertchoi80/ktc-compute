@@ -50,6 +50,7 @@ default['openstack']['compute']['platform']['libvirt_packages'] = %w(
   python-libvirt
   genisoimage
   open-iscsi
+  virt-top
 )
 default['openstack']['compute']['platform']['novnc']['url'] =
   'https://dl.dropboxusercontent.com/u/848501/novnc.tar.gz'
