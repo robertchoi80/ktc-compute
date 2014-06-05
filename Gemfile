@@ -1,4 +1,4 @@
-source  'https://rubygems.org'
+source 'https://rubygems.org'
 
 # get this from git for the chefignore issues
 gem 'berkshelf'
@@ -8,11 +8,9 @@ group 'develop' do
   gem 'kitchen-vagrant'
   gem 'kitchen-openstack'
   gem 'rake'
-  # https://github.com/acrmp/foodcritic/pull/190
-  # and fixes the nokogiri conflict
+  # 3.0.3 is ancient.  git until there's another release
   gem 'foodcritic',
-      git: 'https://github.com/spheromak/foodcritic.git',
-      branch: 'works_with_openstack'
+      git: 'https://github.com/acrmp/foodcritic.git'
   gem 'rubocop'
   gem 'knife-cookbook-doc'
   gem 'chefspec', '>= 3.2.0'

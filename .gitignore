@@ -11,6 +11,7 @@
 .colander
 .kitchen/
 .kitchen.local.yml
+.skel/*
 .vagabond
 .vagrant
 
