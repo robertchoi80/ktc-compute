@@ -122,3 +122,29 @@ end
 ktc_collectd_processes 'compute-agent-processes' do
   input processes
 end
+
+# Setup sensu check for vm port status monitoring
+endpoint = Services::Endpoint.new 'identity-api'
+endpoint.load
+
+auth_uri = "http://#{endpoint.ip}:#{endpoint.port}/v2.0"
+admin_tenant_name = node['openstack']['identity']['admin_tenant_name']
+admin_user = node['openstack']['identity']['admin_user']
+admin_pass = user_password node['openstack']['identity']['admin_user']
+
+post_command = " -u #{admin_user} -t #{admin_tenant_name} "
+post_command << "-p #{admin_pass} -e #{auth_uri}"
+post_command << "-c #{fqdn}"
+
+cookbook_file "#{node['sensu']['directory']}/plugins/check_vm_port_status.py" do
+  source '/etc/sensu_plugins/check_vm_port_status.py'
+  mode '0755'
+end
+
+sensu_check "check_vm_port_status" do
+  command "check_vm_port_status.py" + post_command
+  handlers ['default']
+  standalone true
+  interval 180
+  refresh 180
+end
