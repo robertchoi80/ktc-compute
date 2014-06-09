@@ -8,7 +8,7 @@ include_recipe 'ktc-utils'
 KTC::Attributes.set
 include_recipe 'ktc-logging::logging'
 include_recipe 'ktc-network::compute'
-include_recipe 'ktc-compute::nova-common'
+include_recipe 'ktc-compute::nova_common'
 
 cookbook_file '/etc/init/nova-compute.conf' do
   source 'etc/init/nova-compute.conf'
@@ -56,7 +56,7 @@ end
 
 cookbook_file '/etc/nova/nova-compute.conf' do
   source 'nova-compute.conf'
-  mode   00644
+  mode 00644
   cookbook 'openstack-compute'
   action :create
 end
@@ -136,13 +136,15 @@ post_command = " -u #{admin_user} -t #{admin_tenant_name} "
 post_command << "-p #{admin_pass} -e #{auth_uri}"
 post_command << "-c #{fqdn}"
 
-cookbook_file "#{node['sensu']['directory']}/plugins/check_vm_port_status.py" do
+file_name = "#{node['sensu']['directory']}/plugins/check_vm_port_status.py"
+
+cookbook_file file_name do
   source '/etc/sensu_plugins/check_vm_port_status.py'
   mode '0755'
 end
 
-sensu_check "check_vm_port_status" do
-  command "check_vm_port_status.py" + post_command
+sensu_check 'check_vm_port_status' do
+  command 'check_vm_port_status.py' + post_command
   handlers ['default']
   standalone true
   interval 180

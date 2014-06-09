@@ -14,14 +14,14 @@ user node['openstack']['compute']['user'] do
   home '/var/lib/nova'
   gid node['openstack']['compute']['group']
   shell '/bin/sh'
-  system  true
+  system true
   supports manage_home: true
 end
 
 sudo 'nova_sudoers' do
-  user     node['openstack']['compute']['user']
-  host     'ALL'
-  runas    'root'
+  user node['openstack']['compute']['user']
+  host 'ALL'
+  runas 'root'
   nopasswd true
   commands ['/usr/bin/nova-rootwrap']
 end

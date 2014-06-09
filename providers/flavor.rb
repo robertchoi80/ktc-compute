@@ -30,11 +30,11 @@ end
 # rubocop:disable MethodLength
 def load_current_resource
   @current_resource ||= Chef::Resource::KtcComputeFlavor.new @new_resource.name
-  @current_resource.auth_uri      @new_resource.auth_uri
-  @current_resource.user_pass     @new_resource.user_pass
-  @current_resource.tenant_name   @new_resource.tenant_name
-  @current_resource.user_name     @new_resource.user_name
-  @current_resource.options     @new_resource.options
+  @current_resource.auth_uri @new_resource.auth_uri
+  @current_resource.user_pass @new_resource.user_pass
+  @current_resource.tenant_name @new_resource.tenant_name
+  @current_resource.user_name @new_resource.user_name
+  @current_resource.options @new_resource.options
 
   default_options = {
   }
@@ -48,7 +48,7 @@ end
 action :create do
   if !@current_resource.entity
     resp = send_request @nova, 'create_flavor', @complete_options
-    Chef::Log.info("Created flavor: #{resp[:body]["flavor"]}")
+    Chef::Log.info("Created flavor: #{resp[:body]['flavor']}")
     new_resource.updated_by_last_action(true)
   else
     Chef::Log.info('Flavor already exists.. Not creating.')
