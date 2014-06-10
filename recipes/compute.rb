@@ -133,7 +133,7 @@ admin_user = node['openstack']['identity']['admin_user']
 admin_pass = user_password node['openstack']['identity']['admin_user']
 
 post_command = " -u #{admin_user} -t #{admin_tenant_name} "
-post_command << "-p #{admin_pass} -e #{auth_uri}"
+post_command << "-p #{admin_pass} -e #{auth_uri} "
 post_command << "-c #{node['fqdn']}"
 
 file_name = "#{node['sensu']['directory']}/plugins/check_vm_port_status.py"

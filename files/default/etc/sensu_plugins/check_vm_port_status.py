@@ -220,9 +220,9 @@ if __name__=="__main__":
     # Get Quantum service endpoint
     for item in adminToken['access']['serviceCatalog']:
         if item['name'] == "quantum":
-        adminQuantumURL = item['endpoints'][0]['adminURL']
+            adminQuantumURL = item['endpoints'][0]['adminURL']
         if item['name'] == "nova":
-        adminNovaURL = item['endpoints'][0]['adminURL']
+            adminNovaURL = item['endpoints'][0]['adminURL']
 
     # Validate arugments were given
     hypervisors = getHypervisors(adminNovaURL, adminTokenID)
@@ -246,7 +246,7 @@ if __name__=="__main__":
     # Generate sensu alerts
     ratioDown = portDownServers / activeServers * 100
     if ratioDown >= self.threshold
-        print self.CHECK_NAME + (" CRITICAL: VM Health Status: %d\%" % (100-ratioDown))
+        print self.CHECK_NAME + " CRITICAL: VM Port Status: %d\% Reachable.." % (100-ratioDown)
         for server in portDownServers:
             data = "Server ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
             print data
