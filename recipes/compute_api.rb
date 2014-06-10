@@ -1,5 +1,5 @@
 # Cookbook Name:: ktc-compute
-# Recipe:: compute-api
+# Recipe:: compute_api
 #
 
 include_recipe 'services'
@@ -65,7 +65,7 @@ node.default['openstack']['compute']['novnc_proxy']['bind_interface'] = iface
 
 include_recipe 'openstack-common'
 include_recipe 'ktc-logging::logging'
-include_recipe 'ktc-compute::nova-common'
+include_recipe 'ktc-compute::nova_common'
 
 service_list = %w(
   scheduler

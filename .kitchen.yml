@@ -25,9 +25,9 @@ suites:
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
     - recipe[ktc-network]
-    - recipe[ktc-compute::compute-api]
+    - recipe[ktc-compute::compute_api]
   attributes:
-    controller_tlc: ktc-compute::compute-api
+    controller_tlc: ktc-compute::compute_api
     etcd:
       servers:
         - localhost
@@ -65,10 +65,10 @@ suites:
     - recipe[ktc-image]
     - recipe[ktc-block-storage]
     - recipe[ktc-network]
-    - recipe[ktc-compute::compute-api]
+    - recipe[ktc-compute::compute_api]
     - recipe[ktc-compute::compute]
   attributes:
-    controller_tlc: ktc-compute::compute-api
+    controller_tlc: ktc-compute::compute_api
     etcd:
       servers:
         - localhost

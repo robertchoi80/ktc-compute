@@ -1,12 +1,12 @@
-name              'ktc-compute'
-maintainer        'KT Cloudware, Inc.'
-maintainer_email  'wil.reichert@kt.com'
-license           'All rights reserved'
-description       "Wrapper cookbook of rcb's nova cookbook"
-long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+name 'ktc-compute'
+maintainer 'KT Cloudware, Inc.'
+maintainer_email 'wil.reichert@kt.com'
+license 'All rights reserved'
+description "Wrapper cookbook of rcb's nova cookbook"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '2.1.37'
-recipe		        'compute', 'Include recipes required for compute node'
-recipe		        'compute-api', 'Include recipes required for control node'
+recipe 'compute', 'Include recipes required for compute node'
+recipe 'compute_api', 'Include recipes required for control node'
 
 %w(centos ubuntu).each do |os|
   supports os

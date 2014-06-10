@@ -16,6 +16,6 @@ unless az.nil?
       [[ $? -ne 0 ]] && /usr/bin/nova aggregate-add-host #{az} #{node['fqdn']}
       touch /root/.az_configured
     EOH
-    not_if { ::File.exists?('/var/chef/cache/.az_configured') }
+    not_if { ::File.exist?('/var/chef/cache/.az_configured') }
   end
 end

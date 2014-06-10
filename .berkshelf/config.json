@@ -1,4 +1,8 @@
 {
+  "chef": {
+    "client_key": ".cookbook.pem",
+    "node_name": "cookbook"
+  },
   "ssl": {
     "verify": false
   }
