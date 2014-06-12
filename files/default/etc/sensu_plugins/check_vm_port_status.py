@@ -13,8 +13,12 @@ import json
 import sys
 import urllib2
 import os
-import environment as env
 import datetime
+
+STATE_OK = 0
+STATE_WARNING = 1
+STATE_CRITICAL = 2
+STATE_UNKNOWN = 3
 
 def sendRequest(url, token=None, payload=None):
 
@@ -178,7 +182,7 @@ if __name__=="__main__":
     parser.add_argument("-e", "--endpoint", help="The Keystone API endpoint", type=str)
     parser.add_argument("-c", "--cnode", help="Full hostname of cnode to check.", type=str)
     parser.add_argument("-i", "--interface", help="Full hostname of cnode to check.", type=str)
-    parser.add_argument("-h", "--threshold", help="Threshold for cnode failure(Max% of dead VMs)", type=str)
+    parser.add_argument("-r", "--threshold", help="Threshold for cnode failure(Max% of dead VMs)", type=int)
     args = parser.parse_args()
 
     # Validate arugments were given
@@ -203,26 +207,26 @@ if __name__=="__main__":
         parser.print_help()
         sys.exit(2)
     if type(args.interface) != type(str()):
-        sys.stderr.write('Invalid interface: %s\n' % args.endpoint)
+        sys.stderr.write('Invalid interface: %s\n' % args.interface)
         parser.print_help()
         sys.exit(2)
     if type(args.threshold) != type(int()):
-        sys.stderr.write('Invalid threshold: %d\n' % args.threshold)
+        sys.stderr.write('Invalid threshold: %s\n' % args.threshold)
         parser.print_help()
         sys.exit(2)
 
 
     # Get admin token
-    adminToken = getToken(arg.endpoint, arg.user, arg.tenant, arg.password)
+    adminToken = getToken(args.endpoint, args.user, args.tenant, args.password)
     adminTokenID = adminToken['access']['token']['id']
     adminTokenTenantID = adminToken['access']['token']['tenant']['id']
 
     # Get Quantum service endpoint
     for item in adminToken['access']['serviceCatalog']:
         if item['name'] == "quantum":
-        adminQuantumURL = item['endpoints'][0]['adminURL']
+            adminQuantumURL = item['endpoints'][0]['adminURL']
         if item['name'] == "nova":
-        adminNovaURL = item['endpoints'][0]['adminURL']
+            adminNovaURL = item['endpoints'][0]['adminURL']
 
     # Validate arugments were given
     hypervisors = getHypervisors(adminNovaURL, adminTokenID)
@@ -244,13 +248,17 @@ if __name__=="__main__":
     portDownServers = getPortDownServers(activeServers, networks)
 
     # Generate sensu alerts
-    ratioDown = portDownServers / activeServers * 100
-    if ratioDown >= self.threshold
-        print self.CHECK_NAME + (" CRITICAL: VM Health Status: %d\%" % (100-ratioDown))
+    numDown = len(portDownServers)
+    numActive = len(activeServers)
+    ratioDown = numDown / numActive * 100
+
+    if ratioDown >= args.threshold:
+        print "CRITICAL: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
         for server in portDownServers:
-            data = "Server ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
+            data = "VM ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
             print data
         print traceback.format_exc()
         sys.exit(STATE_CRITICAL)
-    else
+    else:
+        print "OK: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
         sys.exit(STATE_OK)
