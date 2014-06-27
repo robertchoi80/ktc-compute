@@ -147,7 +147,7 @@ end
 
 sensu_check 'check_vm_port_status' do
   command 'check_vm_port_status.py' + post_command
-  handlers %w(default evacuation)
+  handlers %w(default evc_agent)
   standalone true
   interval 180
   refresh 180
