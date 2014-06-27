@@ -243,22 +243,26 @@ if __name__=="__main__":
         
 
     # Get servers for given tenant
+    allServers = getServers(adminNovaURL, adminTokenID, args.cnode)
     activeServers = getActiveServers(adminNovaURL, adminTokenID, args.cnode)
     networks = getNetworks(adminQuantumURL, adminTokenID, args.interface)
     portDownServers = getPortDownServers(activeServers, networks)
 
     # Generate sensu alerts
-    numDown = len(portDownServers)
+    numAll = len(allServers)
     numActive = len(activeServers)
-    ratioDown = numDown / numActive * 100
+    numDown = len(portDownServers)
+    numRunning = numActive - numDown
+    ratioRunning = numRunning / numAll * 100
+    print "[VM Stats] All: %d, Active: %d, Running(Reachable): %d. runningRatio: %d%%" % (numAll, numActive, numRunning, ratioRunning)
 
-    if ratioDown >= args.threshold:
-        print "CRITICAL: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
+    if ratioRunning < args.threshold:
+        print "CRITICAL: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         for server in portDownServers:
             data = "VM ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
             print data
         print traceback.format_exc()
         sys.exit(STATE_CRITICAL)
     else:
-        print "OK: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
+        print "OK: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         sys.exit(STATE_OK)
