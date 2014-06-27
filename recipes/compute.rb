@@ -136,7 +136,7 @@ post_command = " -u #{admin_user} -t #{admin_tenant_name} "
 post_command << "-p #{admin_pass} -e #{auth_uri} "
 post_command << "-c #{node['fqdn']} "
 post_command << '-i eth0 '
-post_command << '-r 80'
+post_command << '-r 50'
 
 file_name = "#{node['sensu']['directory']}/plugins/check_vm_port_status.py"
 
@@ -147,7 +147,7 @@ end
 
 sensu_check 'check_vm_port_status' do
   command 'check_vm_port_status.py' + post_command
-  handlers ['default']
+  handlers ['default', 'evacuation']
   standalone true
   interval 180
   refresh 180
