@@ -14,6 +14,7 @@ import sys
 import urllib2
 import os
 import datetime
+import traceback
 
 STATE_OK = 0
 STATE_WARNING = 1
@@ -249,11 +250,11 @@ if __name__=="__main__":
     portDownServers = getPortDownServers(activeServers, networks)
 
     # Generate sensu alerts
-    numAll = len(allServers)
-    numActive = len(activeServers)
+    numAll = len(allServers['servers'])
+    numActive = len(activeServers['servers'])
     numDown = len(portDownServers)
     numRunning = numActive - numDown
-    ratioRunning = numRunning / numAll * 100
+    ratioRunning = numRunning * 100 / numAll
     print "[VM Stats] All: %d, Active: %d, Running(Reachable): %d. runningRatio: %d%%" % (numAll, numActive, numRunning, ratioRunning)
 
     if ratioRunning < args.threshold:
