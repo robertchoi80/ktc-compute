@@ -2,6 +2,7 @@ AllCops:
   Include:
     - Gemfile
   Exclude:
+    - files/**/*
     - test/**/*
     - vendor/**/*
 
