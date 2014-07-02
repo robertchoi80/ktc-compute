@@ -20,10 +20,9 @@ def find_existing_flavor
   response = @nova.send 'list_flavors_detail'
   entity_list = response[:body]['flavors']
   entity_list.each do |ent|
-    unless need_update?(@complete_options, ent)
-      @current_resource.entity = ent
-      break
-    end
+    next if need_update?(@complete_options, ent)
+    @current_resource.entity = ent
+    break
   end
 end
 

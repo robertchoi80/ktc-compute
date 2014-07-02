@@ -46,9 +46,9 @@ module KTC
     def compile_options(options, search_map)
       compiled_options = {}
       options.each do |k, v|
-        if v.kind_of? Hash
+        if v.is_a? Hash
           compiled_v = compile_options v, search_map
-        elsif (v.kind_of? Symbol) && (v != :null)
+        elsif (v.is_a? Symbol) && (v != :null)
           compiled_v = get_id_from_macro v, search_map
         else
           compiled_v = v
@@ -60,9 +60,8 @@ module KTC
 
     def get_complete_options(default_options, resource_options)
       default_options.each do |k, v|
-        if (v.nil?) && (!resource_options.key? k)
-          fail "Must give option \"#{k}\". Given options: #{resource_options}"
-        end
+        next unless (v.nil?) && (!resource_options.key? k)
+        fail "Must give option \"#{k}\". Given options: #{resource_options}"
       end
       complete_options = default_options.clone
       complete_options.merge!(resource_options)
