@@ -14,6 +14,7 @@ import sys
 import urllib2
 import os
 import datetime
+import traceback
 
 STATE_OK = 0
 STATE_WARNING = 1
@@ -243,22 +244,26 @@ if __name__=="__main__":
         
 
     # Get servers for given tenant
+    allServers = getServers(adminNovaURL, adminTokenID, args.cnode)
     activeServers = getActiveServers(adminNovaURL, adminTokenID, args.cnode)
     networks = getNetworks(adminQuantumURL, adminTokenID, args.interface)
     portDownServers = getPortDownServers(activeServers, networks)
 
     # Generate sensu alerts
+    numAll = len(allServers['servers'])
+    numActive = len(activeServers['servers'])
     numDown = len(portDownServers)
-    numActive = len(activeServers)
-    ratioDown = numDown / numActive * 100
+    numRunning = numActive - numDown
+    ratioRunning = numRunning * 100 / numAll
+    print "[VM Stats] All: %d, Active: %d, Running(Reachable): %d. runningRatio: %d%%" % (numAll, numActive, numRunning, ratioRunning)
 
-    if ratioDown >= args.threshold:
-        print "CRITICAL: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
+    if ratioRunning < args.threshold:
+        print "CRITICAL: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         for server in portDownServers:
             data = "VM ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
             print data
         print traceback.format_exc()
         sys.exit(STATE_CRITICAL)
     else:
-        print "OK: VMs not reachable: %d/%d (%d%%)" % (numDown, numActive, ratioDown)
+        print "OK: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         sys.exit(STATE_OK)
