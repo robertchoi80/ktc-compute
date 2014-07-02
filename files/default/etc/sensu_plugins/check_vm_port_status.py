@@ -254,7 +254,7 @@ if __name__=="__main__":
     numActive = len(activeServers['servers'])
     numDown = len(portDownServers)
     numRunning = numActive - numDown
-    ratioRunning = numRunning * 100 / numAll
+    ratioRunning = (numRunning * 100 / numAll) if numAll > 0 else 0
     print "[VM Stats] All: %d, Active: %d, Running(Reachable): %d. runningRatio: %d%%" % (numAll, numActive, numRunning, ratioRunning)
 
     if ratioRunning < args.threshold:
