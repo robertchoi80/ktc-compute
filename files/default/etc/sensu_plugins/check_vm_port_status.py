@@ -137,7 +137,7 @@ def checkPortStatus(ip):
     """
     Returns port active status with ping test.
     """
-    cmd = 'ping -c 1 -W 2 ' + ip
+    cmd = 'ping -c 1 -W 2 ' + ip + ' > /dev/null 2>&1'
     if os.system(cmd) == 0:
         return "ACTIVE"
     else:
@@ -257,7 +257,10 @@ if __name__=="__main__":
     ratioRunning = (numRunning * 100 / numAll) if numAll > 0 else 0
     print "[VM Stats] All: %d, Active: %d, Running(Reachable): %d. runningRatio: %d%%" % (numAll, numActive, numRunning, ratioRunning)
 
-    if ratioRunning < args.threshold:
+    if numAll == 0:
+        print "NORMAL: running 0 VMs.."
+        sys.exit(STATE_WARNING)
+    elif ratioRunning < args.threshold:
         print "CRITICAL: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         for server in portDownServers:
             data = "VM ID:%s  Name:%s  IP:%s\n" % (server['id'], server['name'], server['ip'])
