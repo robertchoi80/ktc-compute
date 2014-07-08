@@ -146,6 +146,7 @@ cookbook_file file_name do
 end
 
 sensu_check 'check_vm_port_status' do
+  type 'metric'
   command 'check_vm_port_status.py' + post_command
   handlers %w(default evc_agent)
   standalone true
