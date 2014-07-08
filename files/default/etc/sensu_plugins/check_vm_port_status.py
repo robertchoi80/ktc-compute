@@ -259,7 +259,7 @@ if __name__=="__main__":
 
     if numAll == 0:
         print "NORMAL: running 0 VMs.."
-        sys.exit(STATE_WARNING)
+        sys.exit(STATE_OK)
     elif ratioRunning < args.threshold:
         print "CRITICAL: running VMs: %d/%d (%d%%)" % (numRunning, numAll, ratioRunning)
         for server in portDownServers:
