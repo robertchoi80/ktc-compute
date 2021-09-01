@@ -1,5 +1,6 @@
 Description
 ===========
+ktc-compute
 
 Requirements
 ============
